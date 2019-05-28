@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kue Admin Panel</title>
+
+  <link type="text/css" rel="stylesheet" href="{{ config.assetsPath }}/web.css"/>
+  <script type="text/javascript">
+    function base64DecodeUnicode(text) {
+      return decodeURIComponent(atob(text).split('').map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+    }
+    var config = JSON.parse(base64DecodeUnicode('{{ archive config }}'));
+  </script>
+</head>
+<body>
+<div id="root">
+  <p class="text-center text-muted h3 pt-5">
+    <i class="fa fa-spinner fa-pulse fa-fw"></i> Loading...
+  </p>
+</div>
+<script type="text/javascript" src="{{ config.assetsPath }}/web.js"></script>
+</body>
+</html>
