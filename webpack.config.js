@@ -71,7 +71,7 @@ module.exports = (env = {}) => ({
             }
           }
         ]
-      },
+      }
     ]
   },
   plugins: (() => {
