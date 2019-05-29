@@ -1,0 +1,9 @@
+.required-field::after {
+  content: "*";
+  color: #a94442;
+  padding-left: 5px;
+}
+
+.hide {
+  display: none;
+}
