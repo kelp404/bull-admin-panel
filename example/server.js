@@ -8,6 +8,8 @@ const app = express();
 const server = http.createServer(app);
 const queue = kue.createQueue(config.kue);
 
+app.get('/', (req, res) => res.redirect('/kue'));
+
 app.use(new KueAdminPanel({
   basePath: '/kue',
   verifyClient: (info, callback) => {
