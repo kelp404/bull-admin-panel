@@ -13,7 +13,7 @@ jobs:
     steps:
       - checkout
       - run: npm install
-      - run: npm eslint
+      - run: npm run eslint
 
   node12:
     working_directory: ~/kue-admin-panel
@@ -22,4 +22,4 @@ jobs:
     steps:
       - checkout
       - run: npm install
-      - run: npm eslint
+      - run: npm run eslint
