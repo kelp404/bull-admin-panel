@@ -63,6 +63,8 @@
     "pubsub-js": "1.7.0",
     "react": "16.8.6",
     "react-dom": "16.8.6",
+    "react-timeago": "4.4.0",
+    "react-virtualized": "9.21.1",
     "sass-loader": "7.1.0",
     "webpack": "4.32.2",
     "webpack-cli": "3.3.2",
