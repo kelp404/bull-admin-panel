@@ -4,7 +4,7 @@ module.exports = {
     port: '8000'
   },
   kue: {
-    prefix: 'q',
+    prefix: '',
     redis: {
       host: 'localhost',
       port: 6379,
