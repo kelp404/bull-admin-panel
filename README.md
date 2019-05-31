@@ -1,5 +1,12 @@
 # kue-admin-panel
-An admin panel of [Kue](https://github.com/Automattic/kue) base on WebSocket.
+[![CircleCI](https://circleci.com/gh/kelp404/kue-admin-panel.svg?style=svg)](https://circleci.com/gh/kelp404/kue-admin-panel)
+
+An admin panel of [Kue](https://github.com/Automattic/kue) based on WebSocket.
+
+## Installation
+```bash
+npm install kue-admin-panel
+```
 
 ## Screenshots
 <img src="_screenshots/screenshots-01.png"/>
