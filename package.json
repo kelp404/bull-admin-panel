@@ -1,6 +1,6 @@
 {
   "name": "kue-admin-panel",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "An admin panel of Kue.",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,11 @@
     "type": "git",
     "url": "git+https://github.com/kelp404/kue-admin-panel.git"
   },
-  "author": "",
+  "keywords": [
+    "kue",
+    "queue"
+  ],
+  "author": "Kelp <kelp@phate.org>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/kelp404/kue-admin-panel/issues"

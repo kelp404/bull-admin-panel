@@ -38,4 +38,10 @@ app.use(new KueAdminPanel({
   queue: queue,
   server: server
 }));
+
+// Launch server
+server.listen(config.expressServer.port, config.expressServer.host, () => {
+  const {address, port} = server.address();
+  console.log(`Server listening at http://${address}:${port}`);
+});
 ```
