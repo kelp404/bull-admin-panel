@@ -1,4 +1,5 @@
 # kue-admin-panel
+[![npm version](https://badge.fury.io/js/kue-admin-panel.svg)](https://www.npmjs.com/package/kue-admin-panel)
 [![CircleCI](https://circleci.com/gh/kelp404/kue-admin-panel.svg?style=svg)](https://circleci.com/gh/kelp404/kue-admin-panel)
 
 An admin panel of [Kue](https://github.com/Automattic/kue) based on WebSocket.
@@ -29,7 +30,7 @@ const queue = kue.createQueue({
   }
 });
 
-app.use(new KueAdminPanel({
+app.use('/kue', new KueAdminPanel({
   basePath: '/kue',
   verifyClient: (info, callback) => {
     // Do authorization for web socket.
@@ -40,7 +41,7 @@ app.use(new KueAdminPanel({
 }));
 
 // Launch server
-server.listen(config.expressServer.port, config.expressServer.host, () => {
+server.listen(8000, 'localhost', () => {
   const {address, port} = server.address();
   console.log(`Server listening at http://${address}:${port}`);
 });

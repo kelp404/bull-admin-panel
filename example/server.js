@@ -10,7 +10,7 @@ const queue = kue.createQueue(config.kue);
 
 app.get('/', (req, res) => res.redirect('/kue'));
 
-app.use(new KueAdminPanel({
+app.use('/kue', new KueAdminPanel({
   basePath: '/kue',
   verifyClient: (info, callback) => {
     // Do authorization for web socket.
