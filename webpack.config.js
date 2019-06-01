@@ -94,7 +94,7 @@ module.exports = (env = {}) => ({
         new CompressionWebpackPlugin({
           filename: '[path]',
           algorithm: 'gzip',
-          test: /\.(js|css)$/,
+          test: /\.(js|css|svg)$/,
           threshold: 0
         }),
       );
