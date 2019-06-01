@@ -42,3 +42,7 @@
 @import "~bootstrap/scss/spinners";
 @import "~bootstrap/scss/utilities";
 @import "~bootstrap/scss/print";
+
+.tooltip-inner {
+  white-space: nowrap;
+}
