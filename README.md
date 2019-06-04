@@ -13,6 +13,7 @@ npm install kue-admin-panel
 <img src="_screenshots/screenshots-01.png"/>
 
 ## Example
+[more details...](/example)
 ```js
 const express = require('express');
 const http = require('http');
