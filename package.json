@@ -1,6 +1,6 @@
 {
   "name": "kue-admin-panel",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "An admin panel of Kue.",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,8 @@
   },
   "keywords": [
     "kue",
-    "queue"
+    "queue",
+    "job-queue"
   ],
   "author": "Kelp <kelp@phate.org>",
   "license": "MIT",
