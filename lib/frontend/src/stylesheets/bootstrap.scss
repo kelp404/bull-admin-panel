@@ -44,5 +44,5 @@
 @import "~bootstrap/scss/print";
 
 .tooltip-inner {
-  white-space: nowrap;
+  max-width: 400px;
 }
