@@ -1,12 +1,12 @@
-# kue-admin-panel
+# bull-admin-panel
 [![npm version](https://badge.fury.io/js/kue-admin-panel.svg)](https://www.npmjs.com/package/kue-admin-panel)
-[![CircleCI](https://circleci.com/gh/kelp404/kue-admin-panel.svg?style=svg)](https://circleci.com/gh/kelp404/kue-admin-panel)
+[![Actions Status](https://github.com/kelp404/bull-admin-panel/workflows/test/badge.svg)](https://github.com/kelp404/bull-admin-panel/actions)
 
-An admin panel of [Kue](https://github.com/Automattic/kue) based on WebSocket.
+An admin panel of [Bull](https://github.com/OptimalBits/bull) based on WebSocket.
 
 ## Installation
 ```bash
-npm install kue-admin-panel
+npm install bull-admin-panel
 ```
 
 ## Screenshots
@@ -17,27 +17,26 @@ npm install kue-admin-panel
 ```js
 const express = require('express');
 const http = require('http');
-const kue = require('kue');
-const KueAdminPanel = require('kue-admin-panel');
+const Bull = require('bull');
+const BullAdminPanel = require('bull-admin-panel');
 
 const app = express();
 const server = http.createServer(app);
-const queue = kue.createQueue({
+const queue = new Bull('queue-name', {
   redis: {
     host: 'localhost',
     port: 6379,
-    auth: '',
     db: 1
   }
 });
 
-app.use('/kue', new KueAdminPanel({
-  basePath: '/kue',
+app.use('/bull', new BullAdminPanel({
+  basePath: '/bull',
   verifyClient: (info, callback) => {
     // Do authorization for web socket.
     callback(true);
   },
-  queue: queue,
+  queues: [queue],
   server: server
 }));
 
