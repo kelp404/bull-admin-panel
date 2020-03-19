@@ -1,17 +1,17 @@
 const config = require('config');
 const express = require('express');
 const http = require('http');
-const kue = require('kue');
-const KueAdminPanel = require('../');
+const Bull = require('bull');
+const BullAdminPanel = require('../');
 
 const app = express();
 const server = http.createServer(app);
-const queue = kue.createQueue(config.kue);
+const queue = new Bull('task-worker', config.bull);
 
-app.get('/', (req, res) => res.redirect('/kue'));
+app.get('/', (req, res) => res.redirect('/bull'));
 
-app.use('/kue', new KueAdminPanel({
-  basePath: '/kue',
+app.use('/bull', new BullAdminPanel({
+  basePath: '/bull',
   verifyClient: (info, callback) => {
     // Do authorization for web socket.
     // const user = auth(info.req);
@@ -20,7 +20,7 @@ app.use('/kue', new KueAdminPanel({
     // }
     callback(true);
   },
-  queue: queue,
+  queues: [queue],
   server: server
 }));
 

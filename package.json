@@ -26,11 +26,11 @@
   },
   "homepage": "https://github.com/kelp404/bull-admin-panel#readme",
   "dependencies": {
+    "bull": "3.13.0",
     "dispatch": "git+https://git@github.com/kelp404/dispatch.git#170fbc793443b43c34df63a4706c4c8ed75dcb61",
     "express": "4.17.1",
     "fastest-validator": "0.6.17",
     "handlebars": "4.1.2",
-    "kue": "0.11.6",
     "query-string": "6.5.0",
     "ws": "7.0.0"
   },
