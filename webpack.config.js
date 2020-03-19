@@ -36,10 +36,13 @@ module.exports = (env = {}) => ({
         use: [
           {
             loader: 'babel-loader',
-            query: {
+            options: {
               presets: [
-                ['@babel/react'],
-                ['@babel/preset-env', {}]
+                '@babel/preset-env',
+                '@babel/react'
+              ],
+              plugins: [
+                '@babel/plugin-proposal-class-properties'
               ]
             }
           }
@@ -66,6 +69,7 @@ module.exports = (env = {}) => ({
           {
             loader: 'file-loader',
             options: {
+              esModule: false,
               name: 'fonts/[name].[ext]',
               publicPath: env.mode === 'production' ? '.' : '/'
             }
@@ -96,7 +100,7 @@ module.exports = (env = {}) => ({
           algorithm: 'gzip',
           test: /\.(js|css|svg)$/,
           threshold: 0
-        }),
+        })
       );
     }
 
