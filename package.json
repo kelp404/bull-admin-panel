@@ -72,6 +72,7 @@
     "react": "16.8.6",
     "react-bootstrap": "1.0.0-beta.8",
     "react-dom": "16.8.6",
+    "react-infinite-scroll": "git+https://git@github.com/kelp404/react-infinite-scroll.git#4ccc0de8828816e923202489c67260e195e4843d",
     "sass-loader": "8.0.2",
     "webpack": "4.42.0",
     "webpack-cli": "3.3.11",
