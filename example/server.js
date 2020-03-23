@@ -6,7 +6,6 @@ const BullAdminPanel = require('../');
 
 const app = express();
 const server = http.createServer(app);
-const queue = new Bull('task-worker', config.bull);
 
 app.get('/', (req, res) => res.redirect('/bull'));
 
@@ -20,7 +19,7 @@ app.use('/bull', new BullAdminPanel({
     // }
     callback(true);
   },
-  queues: [queue],
+  queues: [new Bull('task-worker', config.bull)],
   server: server
 }));
 
