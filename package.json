@@ -1,6 +1,6 @@
 {
   "name": "bull-admin-panel",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An admin panel of Bull.",
   "main": "index.js",
   "scripts": {
