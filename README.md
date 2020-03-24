@@ -1,5 +1,5 @@
 # bull-admin-panel
-[![npm version](https://badge.fury.io/js/kue-admin-panel.svg)](https://www.npmjs.com/package/kue-admin-panel)
+[![npm version](https://badge.fury.io/js/bull-admin-panel.svg)](https://www.npmjs.com/package/bull-admin-panel)
 [![Actions Status](https://github.com/kelp404/bull-admin-panel/workflows/test/badge.svg)](https://github.com/kelp404/bull-admin-panel/actions)
 
 An admin panel of [Bull](https://github.com/OptimalBits/bull) based on WebSocket.
