@@ -35,7 +35,7 @@ const queue = new Bull('queue-name', {
 app.use('/bull', new BullAdminPanel({
   basePath: '/bull',
   verifyClient: (info, callback) => {
-    // Do authorization for web socket.
+    // Do authorization for WebSocket.
     callback(true);
   },
   queues: [queue],
@@ -47,6 +47,20 @@ server.listen(8000, 'localhost', () => {
   const {address, port} = server.address();
   console.log(`Server listening at http://${address}:${port}`);
 });
+```
+
+
+## Work with nginx
+bull-admin-panel use WebSocket. You need config upgrade request.  
+[NGINX as a WebSocket Proxy](https://www.nginx.com/blog/websocket-nginx/)
+```
+location / {
+    proxy_pass http://127.0.0.1:8080;
+    proxy_http_version 1.1;
+    proxy_set_header Host $host;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection $http_connection;
+}
 ```
 
 

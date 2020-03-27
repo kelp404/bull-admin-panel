@@ -1,7 +1,7 @@
 {
   "name": "bull-admin-panel",
   "version": "0.2.1",
-  "description": "An admin panel of Bull.",
+  "description": "An admin panel of Bull based on WebSocket.",
   "main": "index.js",
   "scripts": {
     "start": "BULL_ADMIN_PANEL_DEBUG=true concurrently --kill-others \"./node_modules/nodemon/bin/nodemon.js example/server.js --watch example --watch lib\" \"./node_modules/webpack-dev-server/bin/webpack-dev-server.js\"",

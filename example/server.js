@@ -12,7 +12,7 @@ app.get('/', (req, res) => res.redirect('/bull'));
 app.use('/bull', new BullAdminPanel({
   basePath: '/bull',
   verifyClient: (info, callback) => {
-    // Do authorization for web socket.
+    // Do authorization for WebSocket.
     // const user = auth(info.req);
     // if (!user) {
     //   callback(false, 401, 'Unauthorized');
