@@ -36,6 +36,7 @@ app.use('/bull', new BullAdminPanel({
   basePath: '/bull',
   verifyClient: (info, callback) => {
     // Do authorization for WebSocket.
+    // https://github.com/websockets/ws/blob/master/doc/ws.md#new-websocketserveroptions-callback
     callback(true);
   },
   queues: [queue],
