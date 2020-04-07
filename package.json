@@ -36,7 +36,7 @@
     "express": "4.17.1",
     "fastest-validator": "1.2.0",
     "handlebars": "4.7.6",
-    "query-string": "6.11.1",
+    "query-string": "6.12.0",
     "ws": "7.2.3"
   },
   "devDependencies": {
@@ -55,7 +55,7 @@
     "concurrently": "5.1.0",
     "config": "3.3.1",
     "conventional-changelog-cli": "2.0.31",
-    "css-loader": "3.4.2",
+    "css-loader": "3.5.0",
     "dayjs": "1.8.23",
     "eslint": "6.8.0",
     "eslint-config-xo": "0.29.1",
