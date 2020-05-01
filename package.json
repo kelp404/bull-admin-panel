@@ -9,7 +9,7 @@
     "ncu": "./node_modules/npm-check-updates/bin/ncu",
     "eslint": "./node_modules/eslint/bin/eslint.js ./ --ignore-pattern 'lib/frontend/dist/'",
     "changelog": "node_modules/conventional-changelog-cli/cli.js -p angular",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/jest/bin/jest.js --coverage"
   },
   "files": [
     "index.js",
@@ -65,6 +65,7 @@
     "eslint-plugin-react-hooks": "3.0.0",
     "file-loader": "6.0.0",
     "history": "4.10.1",
+    "jest": "25.5.3",
     "jquery": "3.5.0",
     "mini-css-extract-plugin": "0.9.0",
     "node-sass": "4.14.0",

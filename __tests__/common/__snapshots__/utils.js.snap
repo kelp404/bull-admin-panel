@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders base html 1`] = `
+"<!DOCTYPE html>
+<html lang=\\"en\\">
+<head>
+  <meta http-equiv=\\"X-UA-Compatible\\" content=\\"IE=edge\\"/>
+  <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no\\"/>
+  <title>Bull Admin Panel</title>
+
+  <link type=\\"text/css\\" rel=\\"stylesheet\\" href=\\"/bull/assets/web.css\\"/>
+  <script type=\\"text/javascript\\">
+    function base64DecodeUnicode(text) {
+      return decodeURIComponent(atob(text).split('').map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+    }
+    var config = JSON.parse(base64DecodeUnicode('eyJhc3NldHNQYXRoIjoiL2J1bGwvYXNzZXRzIiwiYmFzZVBhdGgiOiIvYnVsbCJ9'));
+  </script>
+</head>
+<body>
+<div id=\\"root\\">
+  <div class=\\"text-center text-muted py-5 main-content\\">
+    <div class=\\"spinner-border\\">
+      <span class=\\"sr-only\\">Loading...</span>
+    </div>
+  </div>
+</div>
+<script type=\\"text/javascript\\" src=\\"/bull/assets/web.js\\"></script>
+</body>
+</html>
+"
+`;
