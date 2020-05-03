@@ -42,7 +42,6 @@ const generateResponse = requestId => {
 
 describe('get job', () => {
   test('get a waiting job by id', () => {
-    const jobData = {data: 1};
     const request = generateRequest({
       method: 'GET',
       url: '/queues/test/jobs/1'
@@ -60,7 +59,7 @@ describe('get job', () => {
       return true;
     });
 
-    return queues[0].add(jobData) // Add test job.
+    return queues[0].add({data: 1}) // Add test job.
       .then(() => jobHandler.getJob(request, response, () => {}, 'test', '1'))
       .then(() => {
         expect(response.json).toBeCalledWith(expect.any(Object));
