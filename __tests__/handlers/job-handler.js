@@ -33,10 +33,9 @@ const generateRequest = ({method, url}) => {
 };
 
 const generateResponse = requestId => {
-  const FakeWs = jest.fn();
   return new Response({
     requestId,
-    ws: new FakeWs()
+    ws: {}
   });
 };
 
