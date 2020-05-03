@@ -91,6 +91,6 @@ describe('get job', () => {
       .then(() => jobHandler.getJob(request, response, () => {}, 'test', '2'))
       .catch(error => {
         expect(error).toBeInstanceOf(errors.Http404);
-      })
+      });
   });
 });
