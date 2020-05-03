@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`get job get a waiting job by id 1`] = `
+Object {
+  "attemptsMade": 0,
+  "data": Object {
+    "data": 1,
+  },
+  "delay": 0,
+  "failedReason": undefined,
+  "finishedOn": undefined,
+  "id": "1",
+  "name": "__default__",
+  "opts": Object {
+    "attempts": 1,
+    "backoff": undefined,
+    "delay": 0,
+    "timestamp": Any<Number>,
+  },
+  "processedOn": undefined,
+  "progress": 0,
+  "queue": Object {
+    "name": "test",
+  },
+  "returnvalue": null,
+  "stacktrace": Array [],
+  "state": "waiting",
+  "timestamp": Any<Number>,
+}
+`;

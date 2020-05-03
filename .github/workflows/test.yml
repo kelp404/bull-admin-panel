@@ -8,11 +8,15 @@ jobs:
     strategy:
       matrix:
         node-version: [10.x, 12.x, 14.x]
+        redis-version: [4, 5]
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - use: supercharge/redis-github-action@1.1.0
+      with:
+        redis-version: ${{ matrix.redis-version }}
     - run: npm install
     - run: npm run eslint
     - run: npm test

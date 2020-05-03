@@ -13,6 +13,7 @@ module.exports = {
   globals: {
     jest: 'readonly',
     test: 'readonly',
+    describe: 'readonly',
     expect: 'readonly',
     beforeEach: 'readonly',
     afterEach: 'readonly'
