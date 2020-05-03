@@ -2,6 +2,7 @@ const util = require('util');
 const config = require('config');
 const Bull = require('bull');
 const redis = require('redis');
+const errors = require('../../lib/models/errors');
 const Request = require('../../lib/models/request');
 const Response = require('../../lib/models/response');
 const jobHandler = require('../../lib/handlers/job-handler');
@@ -40,6 +41,20 @@ const generateResponse = requestId => {
 };
 
 describe('get job', () => {
+  test('get a job with failed queue name', () => {
+    const request = generateRequest({
+      method: 'GET',
+      url: '/queues/test/jobs/1'
+    });
+    const response = generateResponse(request.id);
+
+    return queues[0].add({data: 1})
+      .then(() => {
+        const fn = () => jobHandler.getJob(request, response, () => {}, 'not-found', '1');
+        expect(fn).toThrow(errors.Http404);
+      });
+  });
+
   test('get a waiting job by id', () => {
     const request = generateRequest({
       method: 'GET',
@@ -63,5 +78,19 @@ describe('get job', () => {
       .then(() => {
         expect(response.json).toBeCalledWith(expect.any(Object));
       });
+  });
+
+  test('get a job by failed id', () => {
+    const request = generateRequest({
+      method: 'GET',
+      url: '/queues/test/jobs/2'
+    });
+    const response = generateResponse(request.id);
+
+    return queues[0].add({data: 1}) // Add test job.
+      .then(() => jobHandler.getJob(request, response, () => {}, 'test', '2'))
+      .catch(error => {
+        expect(error).toBeInstanceOf(errors.Http404);
+      })
   });
 });
