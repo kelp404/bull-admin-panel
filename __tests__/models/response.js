@@ -1,8 +1,6 @@
 const Response = require('../../lib/models/response');
 
-afterEach(() => {
-  jest.restoreAllMocks();
-});
+afterEach(() => jest.restoreAllMocks());
 
 test('initial response with request id and ws', () => {
   const response = new Response({
