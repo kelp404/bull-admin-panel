@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`initial response with request id and ws 1`] = `
+Response {
+  "isDidResponse": false,
+  "requestId": "id",
+  "ws": Object {
+    "id": 1,
+  },
+}
+`;
+
+exports[`send failed json response 1`] = `"{\\"type\\":\\"response\\",\\"id\\":\\"lb11ge3aa0f\\",\\"status\\":500,\\"body\\":{\\"url\\":\\"http://example.com\\"}}"`;
+
+exports[`send success json response 1`] = `"{\\"type\\":\\"response\\",\\"id\\":\\"lb11ge3aa0f\\",\\"status\\":200,\\"body\\":{\\"url\\":\\"http://example.com\\"}}"`;
