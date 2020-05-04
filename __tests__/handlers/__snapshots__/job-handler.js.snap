@@ -147,3 +147,5 @@ Object {
   "total": 1,
 }
 `;
+
+exports[`retry job that is failed 1`] = `Object {}`;

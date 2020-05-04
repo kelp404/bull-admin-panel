@@ -323,3 +323,78 @@ describe('get job', () => {
       });
   });
 });
+
+describe('retry job', () => {
+  test('with failed queue name', () => {
+    const request = generateRequest({
+      method: 'POST',
+      url: '/queues/not-found/jobs/1/_retry'
+    });
+    const response = generateResponse(request.id);
+    const fn = () => jobHandler.retryJob(request, response, () => {}, 'not-found', '1');
+
+    expect(fn).toThrowError(errors.Http404);
+  });
+
+  test('with failed job id', () => {
+    const request = generateRequest({
+      method: 'POST',
+      url: '/queues/test/jobs/2/_retry'
+    });
+    const response = generateResponse(request.id);
+
+    jest.spyOn(queues[0], 'getJob');
+
+    return queues[0].add({data: 1})
+      .then(() => jobHandler.retryJob(request, response, () => {}, 'test', '2'))
+      .catch(error => {
+        expect(queues[0].getJob).toBeCalledWith('2');
+        expect(error).toBeInstanceOf(errors.Http404);
+      });
+  });
+
+  test('that is not failed', () => {
+    const request = generateRequest({
+      method: 'POST',
+      url: '/queues/test/jobs/1/_retry'
+    });
+    const response = generateResponse(request.id);
+
+    jest.spyOn(queues[0], 'getJob');
+    jest.spyOn(Bull.Job.prototype, 'isFailed');
+
+    return queues[0].add({data: 1})
+      .then(() => jobHandler.retryJob(request, response, () => {}, 'test', '1'))
+      .catch(error => {
+        expect(queues[0].getJob).toBeCalledWith('1');
+        expect(Bull.Job.prototype.isFailed).toBeCalled();
+        expect(error).toBeInstanceOf(errors.Http404);
+      });
+  });
+
+  test('that is failed', () => {
+    const request = generateRequest({
+      method: 'POST',
+      url: '/queues/test/jobs/1/_retry'
+    });
+    const response = generateResponse(request.id);
+
+    jest.spyOn(queues[0], 'getJob');
+    jest.spyOn(Bull.Job.prototype, 'isFailed');
+    jest.spyOn(Bull.Job.prototype, 'retry');
+    jest.spyOn(response, 'json').mockImplementation((data, status) => {
+      expect(data).toMatchSnapshot();
+      expect(status).toBe(204);
+    });
+
+    return queues[0].add({data: 1})
+      .then(job => job.moveToFailed(new Error('for test'), true))
+      .then(() => jobHandler.retryJob(request, response, () => {}, 'test', '1'))
+      .then(() => {
+        expect(queues[0].getJob).toBeCalledWith('1');
+        expect(Bull.Job.prototype.isFailed).toBeCalled();
+        expect(Bull.Job.prototype.retry).toBeCalled();
+        expect(response.json).toBeCalled();
+      });
+  });
+});
