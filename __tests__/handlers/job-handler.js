@@ -372,7 +372,7 @@ describe('retry job', () => {
       });
   });
 
-  test('that is failed', () => {
+  test('by id', () => {
     const request = generateRequest({
       method: 'POST',
       url: '/queues/test/jobs/1/_retry'
@@ -394,6 +394,59 @@ describe('retry job', () => {
         expect(queues[0].getJob).toBeCalledWith('1');
         expect(Bull.Job.prototype.isFailed).toBeCalled();
         expect(Bull.Job.prototype.retry).toBeCalled();
+        expect(response.json).toBeCalled();
+      });
+  });
+});
+
+describe('delete job', () => {
+  test('with failed queue name', () => {
+    const request = generateRequest({
+      method: 'DELETE',
+      url: '/queues/not-found/jobs/1'
+    });
+    const response = generateResponse(request.id);
+    const fn = () => jobHandler.deleteJob(request, response, () => {}, 'not-found', '1');
+
+    expect(fn).toThrowError(errors.Http404);
+  });
+
+  test('with failed job id', () => {
+    const request = generateRequest({
+      method: 'DELETE',
+      url: '/queues/test/jobs/2'
+    });
+    const response = generateResponse(request.id);
+
+    jest.spyOn(queues[0], 'getJob');
+
+    return queues[0].add({data: 1})
+      .then(() => jobHandler.deleteJob(request, response, () => {}, 'test', '2'))
+      .catch(error => {
+        expect(queues[0].getJob).toBeCalledWith('2');
+        expect(error).toBeInstanceOf(errors.Http404);
+      });
+  });
+
+  test('by id', () => {
+    const request = generateRequest({
+      method: 'POST',
+      url: '/queues/test/jobs/1/_retry'
+    });
+    const response = generateResponse(request.id);
+
+    jest.spyOn(queues[0], 'getJob');
+    jest.spyOn(Bull.Job.prototype, 'remove');
+    jest.spyOn(response, 'json').mockImplementation((data, status) => {
+      expect(data).toMatchSnapshot();
+      expect(status).toBe(204);
+    });
+
+    return queues[0].add({data: 1})
+      .then(() => jobHandler.deleteJob(request, response, () => {}, 'test', '1'))
+      .then(() => {
+        expect(queues[0].getJob).toBeCalledWith('1');
+        expect(Bull.Job.prototype.remove).toBeCalled();
         expect(response.json).toBeCalled();
       });
   });

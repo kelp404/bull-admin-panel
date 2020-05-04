@@ -19,6 +19,8 @@ Object {
 }
 `;
 
+exports[`delete job by id 1`] = `Object {}`;
+
 exports[`get job by id 1`] = `
 Object {
   "attemptsMade": 0,
@@ -148,4 +150,4 @@ Object {
 }
 `;
 
-exports[`retry job that is failed 1`] = `Object {}`;
+exports[`retry job by id 1`] = `Object {}`;
