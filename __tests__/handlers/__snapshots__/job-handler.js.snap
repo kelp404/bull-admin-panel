@@ -36,3 +36,31 @@ Object {
   "timestamp": Any<Number>,
 }
 `;
+
+exports[`get jobs by failed queries: extra 1`] = `
+Array [
+  Object {
+    "actual": "a",
+    "expected": "/^d*$/",
+    "field": "index",
+    "message": "The 'index' field fails to match the required pattern.",
+    "type": "stringPattern",
+  },
+  Object {
+    "actual": "b",
+    "expected": "/^d*$/",
+    "field": "size",
+    "message": "The 'size' field fails to match the required pattern.",
+    "type": "stringPattern",
+  },
+  Object {
+    "actual": "c",
+    "expected": "waiting, active, completed, failed, delayed, paused",
+    "field": "state",
+    "message": "The 'state' field does not match any of the allowed values.",
+    "type": "stringEnum",
+  },
+]
+`;
+
+exports[`get jobs by failed queries: message 1`] = `"form validation failed."`;

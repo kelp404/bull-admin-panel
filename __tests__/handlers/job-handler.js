@@ -1,6 +1,7 @@
 const util = require('util');
 const config = require('config');
 const Bull = require('bull');
+const queryString = require('query-string');
 const redis = require('redis');
 const errors = require('../../lib/models/errors');
 const Request = require('../../lib/models/request');
@@ -42,6 +43,26 @@ const generateResponse = requestId => {
     }
   });
 };
+
+describe('get jobs', () => {
+  test('by failed queries', () => {
+    const query = {index: 'a', size: 'b', state: 'c'};
+    const request = generateRequest({
+      method: 'GET',
+      url: `/queues/test/jobs?${queryString.stringify(query)}`
+    });
+    const response = generateResponse(request.id);
+    const fn = () => jobHandler.getJobs(request, response, () => {}, 'test');
+
+    jest.spyOn(errors, 'Http400').mockImplementation((message, extra) => {
+      expect(message).toMatchSnapshot('message');
+      expect(extra).toMatchSnapshot('extra');
+    });
+
+    expect(fn).toThrowError(errors.Http400);
+    expect(errors.Http400).toBeCalled();
+  });
+});
 
 describe('clean jobs', () => {
   test('that are waiting', () => {
