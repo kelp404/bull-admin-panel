@@ -73,6 +73,38 @@ describe('get jobs', () => {
 
     expect(fn).toThrowError(errors.Http404);
   });
+
+  test('by defaults', () => {
+    const request = generateRequest({
+      method: 'GET',
+      url: '/queues/test/jobs'
+    });
+    const response = generateResponse(request.id);
+
+    jest.spyOn(queues[0], 'getJobs');
+    jest.spyOn(queues[0], 'getJobCounts');
+    jest.spyOn(response, 'json').mockImplementation((data, status) => {
+      expect(data).toMatchSnapshot({
+        items: [
+          {
+            opts: {
+              timestamp: expect.any(Number)
+            },
+            timestamp: expect.any(Number)
+          }
+        ]
+      });
+      expect(status).toBeUndefined();
+    });
+
+    return queues[0].add({data: 1})
+      .then(() => jobHandler.getJobs(request, response, () => {}, 'test'))
+      .then(() => {
+        expect(queues[0].getJobs).toBeCalledWith(JobState.all(), 0, 19);
+        expect(queues[0].getJobCounts).toBeCalled();
+        expect(response.json).toBeCalled();
+      });
+  });
 });
 
 describe('clean jobs', () => {
@@ -181,13 +213,14 @@ describe('get job', () => {
       });
   });
 
-  test('by id and state is waiting', () => {
+  test('by id', () => {
     const request = generateRequest({
       method: 'GET',
       url: '/queues/test/jobs/1'
     });
     const response = generateResponse(request.id);
 
+    jest.spyOn(queues[0], 'getJob');
     jest.spyOn(response, 'json').mockImplementation((data, status) => {
       expect(data).toMatchSnapshot({
         opts: {
@@ -196,12 +229,12 @@ describe('get job', () => {
         timestamp: expect.any(Number)
       });
       expect(status).toBeUndefined();
-      return true;
     });
 
     return queues[0].add({data: 1}) // Add test job.
       .then(() => jobHandler.getJob(request, response, () => {}, 'test', '1'))
       .then(() => {
+        expect(queues[0].getJob).toBeCalledWith('1');
         expect(response.json).toBeCalled();
       });
   });

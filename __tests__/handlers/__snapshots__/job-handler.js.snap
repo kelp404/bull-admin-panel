@@ -8,7 +8,7 @@ exports[`clean jobs that are paused 1`] = `"form validation failed."`;
 
 exports[`clean jobs that are waiting 1`] = `"form validation failed."`;
 
-exports[`get job by id and state is waiting 1`] = `
+exports[`get job by id 1`] = `
 Object {
   "attemptsMade": 0,
   "data": Object {
@@ -34,6 +34,42 @@ Object {
   "stacktrace": Array [],
   "state": "waiting",
   "timestamp": Any<Number>,
+}
+`;
+
+exports[`get jobs by defaults 1`] = `
+Object {
+  "index": 0,
+  "items": Array [
+    Object {
+      "attemptsMade": 0,
+      "data": Object {
+        "data": 1,
+      },
+      "delay": 0,
+      "failedReason": undefined,
+      "finishedOn": undefined,
+      "id": "1",
+      "name": "__default__",
+      "opts": Object {
+        "attempts": 1,
+        "backoff": undefined,
+        "delay": 0,
+        "timestamp": Any<Number>,
+      },
+      "processedOn": undefined,
+      "progress": 0,
+      "queue": Object {
+        "name": "test",
+      },
+      "returnvalue": null,
+      "stacktrace": Array [],
+      "state": undefined,
+      "timestamp": Any<Number>,
+    },
+  ],
+  "size": 20,
+  "total": 1,
 }
 `;
 
