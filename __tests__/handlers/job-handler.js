@@ -44,6 +44,43 @@ const generateResponse = requestId => {
   });
 };
 
+describe('count all state jobs', () => {
+  test('with failed queue name', () => {
+    const request = generateRequest({
+      method: 'POST',
+      url: '/queues/not-found/jobs/_count'
+    });
+    const response = generateResponse(request.id);
+    const fn = () => jobHandler.countAllStateJobs(request, response, () => {}, 'not-found');
+
+    expect(fn).toThrowError(errors.Http404);
+  });
+
+  test('by defaults', () => {
+    const request = generateRequest({
+      method: 'POST',
+      url: '/queues/not-found/jobs/_count'
+    });
+    const response = generateResponse(request.id);
+
+    jest.spyOn(queues[0], 'getWaitingCount');
+    jest.spyOn(queues[0], 'getActiveCount');
+    jest.spyOn(queues[0], 'getCompletedCount');
+    jest.spyOn(queues[0], 'getFailedCount');
+    jest.spyOn(queues[0], 'getDelayedCount');
+    jest.spyOn(queues[0], 'getPausedCount');
+    jest.spyOn(response, 'json').mockImplementation((data, status) => {
+      expect(data).toMatchSnapshot();
+      expect(status).toBeUndefined();
+    });
+
+    return jobHandler.countAllStateJobs(request, response, () => {}, 'test')
+      .then(() => {
+        expect(response.json).toBeCalled();
+      });
+  });
+});
+
 describe('get jobs', () => {
   test('by failed queries', () => {
     const query = {index: 'a', size: 'b', state: 'c'};
@@ -101,6 +138,39 @@ describe('get jobs', () => {
       .then(() => jobHandler.getJobs(request, response, () => {}, 'test'))
       .then(() => {
         expect(queues[0].getJobs).toBeCalledWith(JobState.all(), 0, 19);
+        expect(queues[0].getJobCounts).toBeCalled();
+        expect(response.json).toBeCalled();
+      });
+  });
+
+  test('that are waiting', () => {
+    const query = {state: JobState.WAITING};
+    const request = generateRequest({
+      method: 'GET',
+      url: `/queues/test/jobs?${queryString.stringify(query)}`
+    });
+    const response = generateResponse(request.id);
+
+    jest.spyOn(queues[0], 'getJobs');
+    jest.spyOn(queues[0], 'getJobCounts');
+    jest.spyOn(response, 'json').mockImplementation((data, status) => {
+      expect(data).toMatchSnapshot({
+        items: [
+          {
+            opts: {
+              timestamp: expect.any(Number)
+            },
+            timestamp: expect.any(Number)
+          }
+        ]
+      });
+      expect(status).toBeUndefined();
+    });
+
+    return queues[0].add({data: 1})
+      .then(() => jobHandler.getJobs(request, response, () => {}, 'test'))
+      .then(() => {
+        expect(queues[0].getJobs).toBeCalledWith([JobState.WAITING], 0, 19);
         expect(queues[0].getJobCounts).toBeCalled();
         expect(response.json).toBeCalled();
       });
