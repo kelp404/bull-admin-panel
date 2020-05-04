@@ -431,7 +431,7 @@ describe('delete job', () => {
   test('by id', () => {
     const request = generateRequest({
       method: 'POST',
-      url: '/queues/test/jobs/1/_retry'
+      url: '/queues/test/jobs/1'
     });
     const response = generateResponse(request.id);
 
