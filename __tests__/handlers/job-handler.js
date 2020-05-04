@@ -62,6 +62,17 @@ describe('get jobs', () => {
     expect(fn).toThrowError(errors.Http400);
     expect(errors.Http400).toBeCalled();
   });
+
+  test('with failed queue name', () => {
+    const request = generateRequest({
+      method: 'GET',
+      url: '/queues/test/jobs'
+    });
+    const response = generateResponse(request.id);
+    const fn = () => jobHandler.getJobs(request, response, () => {}, 'not-found');
+
+    expect(fn).toThrowError(errors.Http404);
+  });
 });
 
 describe('clean jobs', () => {
