@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`clean jobs can not clean active jobs 1`] = `"form validation failed."`;
+exports[`clean jobs that are active 1`] = `"form validation failed."`;
 
-exports[`clean jobs can not clean delayed jobs 1`] = `"form validation failed."`;
+exports[`clean jobs that are delayed 1`] = `"form validation failed."`;
 
-exports[`clean jobs can not clean paused jobs 1`] = `"form validation failed."`;
+exports[`clean jobs that are paused 1`] = `"form validation failed."`;
 
-exports[`clean jobs can not clean waiting jobs 1`] = `"form validation failed."`;
+exports[`clean jobs that are waiting 1`] = `"form validation failed."`;
 
-exports[`get job get a waiting job by id 1`] = `
+exports[`get job by id and state is waiting 1`] = `
 Object {
   "attemptsMade": 0,
   "data": Object {

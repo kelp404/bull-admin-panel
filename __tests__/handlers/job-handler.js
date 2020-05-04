@@ -44,7 +44,7 @@ const generateResponse = requestId => {
 };
 
 describe('clean jobs', () => {
-  test('can not clean waiting jobs', () => {
+  test('that are waiting', () => {
     const request = generateRequest({
       method: 'POST',
       url: `/queues/test/jobs/_clean?state=${JobState.WAITING}`
@@ -55,7 +55,7 @@ describe('clean jobs', () => {
     expect(fn).toThrowErrorMatchingSnapshot();
   });
 
-  test('can not clean active jobs', () => {
+  test('that are active', () => {
     const request = generateRequest({
       method: 'POST',
       url: `/queues/test/jobs/_clean?state=${JobState.ACTIVE}`
@@ -66,7 +66,7 @@ describe('clean jobs', () => {
     expect(fn).toThrowErrorMatchingSnapshot();
   });
 
-  test('can not clean delayed jobs', () => {
+  test('that are delayed', () => {
     const request = generateRequest({
       method: 'POST',
       url: `/queues/test/jobs/_clean?state=${JobState.DELAYED}`
@@ -77,7 +77,7 @@ describe('clean jobs', () => {
     expect(fn).toThrowErrorMatchingSnapshot();
   });
 
-  test('can not clean paused jobs', () => {
+  test('that are paused', () => {
     const request = generateRequest({
       method: 'POST',
       url: `/queues/test/jobs/_clean?state=${JobState.PAUSED}`
@@ -88,7 +88,7 @@ describe('clean jobs', () => {
     expect(fn).toThrowErrorMatchingSnapshot();
   });
 
-  test('clean jobs with failed queue name', () => {
+  test('with failed queue name', () => {
     const request = generateRequest({
       method: 'POST',
       url: `/queues/test/jobs/_clean?state=${JobState.COMPLETED}`
@@ -99,7 +99,7 @@ describe('clean jobs', () => {
     expect(fn).toThrowError(errors.Http404);
   });
 
-  test('clean completed jobs', () => {
+  test('that are completed', () => {
     const request = generateRequest({
       method: 'POST',
       url: `/queues/test/jobs/_clean?state=${JobState.COMPLETED}`
@@ -116,7 +116,7 @@ describe('clean jobs', () => {
       });
   });
 
-  test('clean failed jobs', () => {
+  test('that are failed', () => {
     const request = generateRequest({
       method: 'POST',
       url: `/queues/test/jobs/_clean?state=${JobState.FAILED}`
@@ -135,7 +135,7 @@ describe('clean jobs', () => {
 });
 
 describe('get job', () => {
-  test('get a job with failed queue name', () => {
+  test('with failed queue name', () => {
     const request = generateRequest({
       method: 'GET',
       url: '/queues/test/jobs/1'
@@ -145,11 +145,11 @@ describe('get job', () => {
     return queues[0].add({data: 1})
       .then(() => {
         const fn = () => jobHandler.getJob(request, response, () => {}, 'not-found', '1');
-        expect(fn).toThrow(errors.Http404);
+        expect(fn).toThrowError(errors.Http404);
       });
   });
 
-  test('get a waiting job by id', () => {
+  test('by id and state is waiting', () => {
     const request = generateRequest({
       method: 'GET',
       url: '/queues/test/jobs/1'
@@ -174,7 +174,7 @@ describe('get job', () => {
       });
   });
 
-  test('get a job by failed id', () => {
+  test('by failed id', () => {
     const request = generateRequest({
       method: 'GET',
       url: '/queues/test/jobs/2'
