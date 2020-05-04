@@ -430,7 +430,7 @@ describe('delete job', () => {
 
   test('by id', () => {
     const request = generateRequest({
-      method: 'POST',
+      method: 'DELETE',
       url: '/queues/test/jobs/1'
     });
     const response = generateResponse(request.id);
