@@ -1,4 +1,4 @@
-name: test
+name: test and upload coveralls
 
 on: [push]
 
@@ -21,20 +21,8 @@ jobs:
       - run: npm run eslint
       - run: npm test
       - run: npm run build
-
-  upload-coveralls:
-    needs: [test]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-      - uses: supercharge/redis-github-action@1.1.0
-        with:
-          redis-version: 6
-      - run: npm install
-      - run: npm test
-      - run: npm run coveralls
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      - name: upload to coveralls.io
+        if: ${{ matrix.node-version == '14.x' && matrix.redis-version == '6' }}
+        run: npm run coveralls
+          env:
+            COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
