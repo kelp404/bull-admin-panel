@@ -1,6 +1,7 @@
 # bull-admin-panel
 [![npm version](https://badge.fury.io/js/bull-admin-panel.svg)](https://www.npmjs.com/package/bull-admin-panel)
-[![Actions Status](https://github.com/kelp404/bull-admin-panel/workflows/test/badge.svg)](https://github.com/kelp404/bull-admin-panel/actions)
+[![Coverage Status](https://coveralls.io/repos/github/kelp404/bull-admin-panel/badge.svg?branch=master)](https://coveralls.io/github/kelp404/bull-admin-panel?branch=master)
+[![Actions Status](https://github.com/kelp404/bull-admin-panel/workflows/test%20and%20upload%20coveralls/badge.svg)](https://github.com/kelp404/bull-admin-panel/actions)
 
 An admin panel of [Bull](https://github.com/OptimalBits/bull) based on WebSocket.
 
