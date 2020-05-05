@@ -21,7 +21,7 @@ jobs:
       - run: npm run eslint
       - run: npm test
       - run: npm run build
-      - name: upload to coveralls.io
+      - name: Upload to coveralls.io
         if: ${{ matrix.node-version == '14.x' && matrix.redis-version == '6' }}
         run: npm run coveralls
         env:
