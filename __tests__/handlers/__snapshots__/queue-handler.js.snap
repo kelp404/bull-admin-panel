@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`get queues by defaults 1`] = `
+Array [
+  Object {
+    "name": "test",
+  },
+]
+`;
