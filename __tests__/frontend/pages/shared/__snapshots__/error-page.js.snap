@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render error page with error information 1`] = `
+<p
+  className="text-center h2"
+>
+  fake error
+</p>
+`;
+
+exports[`render error page with string 1`] = `
+<p
+  className="text-center h2"
+>
+  fake error
+</p>
+`;
