@@ -1,6 +1,6 @@
 {
   "name": "bull-admin-panel",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "An admin panel of Bull based on WebSocket.",
   "main": "index.js",
   "scripts": {
