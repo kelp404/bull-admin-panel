@@ -35,7 +35,7 @@
     "bull": "3.14.0",
     "dispatch": "git+https://git@github.com/kelp404/dispatch.git#170fbc793443b43c34df63a4706c4c8ed75dcb61",
     "express": "4.17.1",
-    "fastest-validator": "1.3.0",
+    "fastest-validator": "1.4.1",
     "handlebars": "4.7.6",
     "query-string": "6.12.1",
     "ws": "7.2.5"
