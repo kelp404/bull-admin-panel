@@ -75,7 +75,7 @@ The bull admin panel base path. We pass to frontend app.
 ### socketValidationPath
 Type: `string`  
 Required: `optional`  
-The default value is copy from `basePath`. The websocket just accepts to connect to this path.  
+The default value is copy from `basePath`. The websocket just accepts to connect via this path.  
 If your site has rewrite path settings. You can use this option.
 
 ### verifyClient
