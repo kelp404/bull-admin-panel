@@ -66,6 +66,44 @@ location / {
 ```
 
 
+## Options
+### basePath
+Type: `string`  
+Required: `required`  
+The bull admin panel base path. We pass to frontend app.
+
+### socketValidationPath
+Type: `string`  
+Required: `optional`  
+The default value is copy from `basePath`. The websocket just accepts to connect to this path.  
+If your site has rewrite path settings. You can use this option.
+
+### verifyClient
+Type: `function(info: object, callback: function)`  
+Required: `required`  
+For websocket authorization.  
+More information:
++ [A function which can be used to validate incoming connections.](https://github.com/websockets/ws/blob/master/doc/ws.md#new-websocketserveroptions-callback)
++ [Usage](https://github.com/websockets/ws/issues/377#issuecomment-462152231)
+
+### queues
+Type: `Array<Bull>`  
+Required: `required`  
+Bull instances.
+```js
+const Bull = require('bull');
+const queues = [
+  new Bull('queue-a', 'redis://localhost:6379/0'),
+  new Bull('queue-b', 'redis://localhost:6379/0')
+];
+```
+
+### server
+Type: `http.Server`  
+Required: `required`  
+The node.js [http.Server](https://nodejs.org/api/http.html#http_class_http_server) instance.
+
+
 ## Develop
 Fork this repository then clone it.  
 1. Install node modules.  
