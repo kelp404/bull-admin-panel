@@ -37,7 +37,7 @@
     "express": "4.17.1",
     "fastest-validator": "1.4.2",
     "handlebars": "4.7.6",
-    "query-string": "6.13.0",
+    "query-string": "6.13.1",
     "ws": "7.3.0"
   },
   "devDependencies": {
