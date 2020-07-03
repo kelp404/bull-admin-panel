@@ -26,13 +26,16 @@ afterEach(() => {
   queues.forEach(queue => queue.close());
 });
 
-const generateRequest = ({method, url}) => {
-  return new Request({
+const generateRequest = ({method, url, params}) => {
+  const request = new Request({
     id: Math.random().toString(36).substr(2),
     queues,
     method,
     url
   });
+
+  request.params = params;
+  return request;
 };
 
 const generateResponse = requestId => {
@@ -48,10 +51,13 @@ describe('count all state jobs', () => {
   test('with failed queue name', () => {
     const request = generateRequest({
       method: 'POST',
-      url: '/queues/not-found/jobs/_count'
+      url: '/queues/not-found/jobs/_count',
+      params: {
+        queueName: 'not-found'
+      }
     });
     const response = generateResponse(request.id);
-    const fn = () => jobHandler.countAllStateJobs(request, response, () => {}, 'not-found');
+    const fn = () => jobHandler.countAllStateJobs(request, response);
 
     expect(fn).toThrowError(errors.Http404);
   });
@@ -59,7 +65,10 @@ describe('count all state jobs', () => {
   test('by defaults', () => {
     const request = generateRequest({
       method: 'POST',
-      url: '/queues/not-found/jobs/_count'
+      url: '/queues/test/jobs/_count',
+      params: {
+        queueName: 'test'
+      }
     });
     const response = generateResponse(request.id);
 
@@ -74,7 +83,7 @@ describe('count all state jobs', () => {
       expect(status).toBeUndefined();
     });
 
-    return jobHandler.countAllStateJobs(request, response, () => {}, 'test')
+    return jobHandler.countAllStateJobs(request, response)
       .then(() => {
         expect(response.json).toBeCalled();
       });
@@ -86,10 +95,13 @@ describe('get jobs', () => {
     const query = {index: 'a', size: 'b', state: 'c'};
     const request = generateRequest({
       method: 'GET',
-      url: `/queues/test/jobs?${queryString.stringify(query)}`
+      url: `/queues/test/jobs?${queryString.stringify(query)}`,
+      params: {
+        queueName: 'test'
+      }
     });
     const response = generateResponse(request.id);
-    const fn = () => jobHandler.getJobs(request, response, () => {}, 'test');
+    const fn = () => jobHandler.getJobs(request, response);
 
     jest.spyOn(errors, 'Http400').mockImplementation((message, extra) => {
       expect(message).toMatchSnapshot('message');
@@ -103,10 +115,13 @@ describe('get jobs', () => {
   test('with failed queue name', () => {
     const request = generateRequest({
       method: 'GET',
-      url: '/queues/test/jobs'
+      url: '/queues/not-found/jobs',
+      params: {
+        queueName: 'not-found'
+      }
     });
     const response = generateResponse(request.id);
-    const fn = () => jobHandler.getJobs(request, response, () => {}, 'not-found');
+    const fn = () => jobHandler.getJobs(request, response);
 
     expect(fn).toThrowError(errors.Http404);
   });
@@ -114,7 +129,10 @@ describe('get jobs', () => {
   test('by defaults', () => {
     const request = generateRequest({
       method: 'GET',
-      url: '/queues/test/jobs'
+      url: '/queues/test/jobs',
+      params: {
+        queueName: 'test'
+      }
     });
     const response = generateResponse(request.id);
 
@@ -135,7 +153,7 @@ describe('get jobs', () => {
     });
 
     return queues[0].add({data: 1})
-      .then(() => jobHandler.getJobs(request, response, () => {}, 'test'))
+      .then(() => jobHandler.getJobs(request, response))
       .then(() => {
         expect(queues[0].getJobs).toBeCalledWith(JobState.all(), 0, 19);
         expect(queues[0].getJobCounts).toBeCalled();
@@ -147,7 +165,10 @@ describe('get jobs', () => {
     const query = {state: JobState.WAITING};
     const request = generateRequest({
       method: 'GET',
-      url: `/queues/test/jobs?${queryString.stringify(query)}`
+      url: `/queues/test/jobs?${queryString.stringify(query)}`,
+      params: {
+        queueName: 'test'
+      }
     });
     const response = generateResponse(request.id);
 
@@ -168,7 +189,7 @@ describe('get jobs', () => {
     });
 
     return queues[0].add({data: 1})
-      .then(() => jobHandler.getJobs(request, response, () => {}, 'test'))
+      .then(() => jobHandler.getJobs(request, response))
       .then(() => {
         expect(queues[0].getJobs).toBeCalledWith([JobState.WAITING], 0, 19);
         expect(queues[0].getJobCounts).toBeCalled();
@@ -181,10 +202,13 @@ describe('clean jobs', () => {
   test('that are waiting', () => {
     const request = generateRequest({
       method: 'POST',
-      url: `/queues/test/jobs/_clean?state=${JobState.WAITING}`
+      url: `/queues/test/jobs/_clean?state=${JobState.WAITING}`,
+      params: {
+        queueName: 'test'
+      }
     });
     const response = generateResponse(request.id);
-    const fn = () => jobHandler.cleanJobs(request, response, () => {}, 'test');
+    const fn = () => jobHandler.cleanJobs(request, response);
 
     expect(fn).toThrowErrorMatchingSnapshot();
   });
@@ -192,10 +216,13 @@ describe('clean jobs', () => {
   test('that are active', () => {
     const request = generateRequest({
       method: 'POST',
-      url: `/queues/test/jobs/_clean?state=${JobState.ACTIVE}`
+      url: `/queues/test/jobs/_clean?state=${JobState.ACTIVE}`,
+      params: {
+        queueName: 'test'
+      }
     });
     const response = generateResponse(request.id);
-    const fn = () => jobHandler.cleanJobs(request, response, () => {}, 'test');
+    const fn = () => jobHandler.cleanJobs(request, response);
 
     expect(fn).toThrowErrorMatchingSnapshot();
   });
@@ -203,10 +230,13 @@ describe('clean jobs', () => {
   test('that are delayed', () => {
     const request = generateRequest({
       method: 'POST',
-      url: `/queues/test/jobs/_clean?state=${JobState.DELAYED}`
+      url: `/queues/test/jobs/_clean?state=${JobState.DELAYED}`,
+      params: {
+        queueName: 'test'
+      }
     });
     const response = generateResponse(request.id);
-    const fn = () => jobHandler.cleanJobs(request, response, () => {}, 'test');
+    const fn = () => jobHandler.cleanJobs(request, response);
 
     expect(fn).toThrowErrorMatchingSnapshot();
   });
@@ -214,10 +244,13 @@ describe('clean jobs', () => {
   test('that are paused', () => {
     const request = generateRequest({
       method: 'POST',
-      url: `/queues/test/jobs/_clean?state=${JobState.PAUSED}`
+      url: `/queues/test/jobs/_clean?state=${JobState.PAUSED}`,
+      params: {
+        queueName: 'test'
+      }
     });
     const response = generateResponse(request.id);
-    const fn = () => jobHandler.cleanJobs(request, response, () => {}, 'test');
+    const fn = () => jobHandler.cleanJobs(request, response);
 
     expect(fn).toThrowErrorMatchingSnapshot();
   });
@@ -225,10 +258,13 @@ describe('clean jobs', () => {
   test('with failed queue name', () => {
     const request = generateRequest({
       method: 'POST',
-      url: `/queues/test/jobs/_clean?state=${JobState.COMPLETED}`
+      url: `/queues/not-found/jobs/_clean?state=${JobState.COMPLETED}`,
+      params: {
+        queueName: 'not-found'
+      }
     });
     const response = generateResponse(request.id);
-    const fn = () => jobHandler.cleanJobs(request, response, () => {}, 'not-found');
+    const fn = () => jobHandler.cleanJobs(request, response);
 
     expect(fn).toThrowError(errors.Http404);
   });
@@ -236,14 +272,17 @@ describe('clean jobs', () => {
   test('that are completed', () => {
     const request = generateRequest({
       method: 'POST',
-      url: `/queues/test/jobs/_clean?state=${JobState.COMPLETED}`
+      url: `/queues/test/jobs/_clean?state=${JobState.COMPLETED}`,
+      params: {
+        queueName: 'test'
+      }
     });
     const response = generateResponse(request.id);
 
     jest.spyOn(queues[0], 'clean');
     jest.spyOn(response, 'json');
 
-    return jobHandler.cleanJobs(request, response, () => {}, 'test')
+    return jobHandler.cleanJobs(request, response)
       .then(() => {
         expect(queues[0].clean).toBeCalledWith(0, JobState.COMPLETED);
         expect(response.json).toBeCalledWith({}, 204);
@@ -253,14 +292,17 @@ describe('clean jobs', () => {
   test('that are failed', () => {
     const request = generateRequest({
       method: 'POST',
-      url: `/queues/test/jobs/_clean?state=${JobState.FAILED}`
+      url: `/queues/test/jobs/_clean?state=${JobState.FAILED}`,
+      params: {
+        queueName: 'test'
+      }
     });
     const response = generateResponse(request.id);
 
     jest.spyOn(queues[0], 'clean');
     jest.spyOn(response, 'json');
 
-    return jobHandler.cleanJobs(request, response, () => {}, 'test')
+    return jobHandler.cleanJobs(request, response)
       .then(() => {
         expect(queues[0].clean).toBeCalledWith(0, JobState.FAILED);
         expect(response.json).toBeCalledWith({}, 204);
@@ -272,13 +314,17 @@ describe('get job', () => {
   test('with failed queue name', () => {
     const request = generateRequest({
       method: 'GET',
-      url: '/queues/test/jobs/1'
+      url: '/queues/not-found/jobs/1',
+      params: {
+        queueName: 'not-found',
+        jobId: '1'
+      }
     });
     const response = generateResponse(request.id);
 
     return queues[0].add({data: 1})
       .then(() => {
-        const fn = () => jobHandler.getJob(request, response, () => {}, 'not-found', '1');
+        const fn = () => jobHandler.getJob(request, response);
         expect(fn).toThrowError(errors.Http404);
       });
   });
@@ -286,7 +332,11 @@ describe('get job', () => {
   test('by id', () => {
     const request = generateRequest({
       method: 'GET',
-      url: '/queues/test/jobs/1'
+      url: '/queues/test/jobs/1',
+      params: {
+        queueName: 'test',
+        jobId: '1'
+      }
     });
     const response = generateResponse(request.id);
 
@@ -302,7 +352,7 @@ describe('get job', () => {
     });
 
     return queues[0].add({data: 1}) // Add test job.
-      .then(() => jobHandler.getJob(request, response, () => {}, 'test', '1'))
+      .then(() => jobHandler.getJob(request, response))
       .then(() => {
         expect(queues[0].getJob).toBeCalledWith('1');
         expect(response.json).toBeCalled();
@@ -312,12 +362,16 @@ describe('get job', () => {
   test('by failed id', () => {
     const request = generateRequest({
       method: 'GET',
-      url: '/queues/test/jobs/2'
+      url: '/queues/test/jobs/2',
+      params: {
+        queueName: 'test',
+        jobId: '2'
+      }
     });
     const response = generateResponse(request.id);
 
     return queues[0].add({data: 1}) // Add test job.
-      .then(() => jobHandler.getJob(request, response, () => {}, 'test', '2'))
+      .then(() => jobHandler.getJob(request, response))
       .catch(error => {
         expect(error).toBeInstanceOf(errors.Http404);
       });
@@ -328,10 +382,14 @@ describe('retry job', () => {
   test('with failed queue name', () => {
     const request = generateRequest({
       method: 'POST',
-      url: '/queues/not-found/jobs/1/_retry'
+      url: '/queues/not-found/jobs/1/_retry',
+      params: {
+        queueName: 'not-found',
+        jobId: '1'
+      }
     });
     const response = generateResponse(request.id);
-    const fn = () => jobHandler.retryJob(request, response, () => {}, 'not-found', '1');
+    const fn = () => jobHandler.retryJob(request, response);
 
     expect(fn).toThrowError(errors.Http404);
   });
@@ -339,14 +397,18 @@ describe('retry job', () => {
   test('with failed job id', () => {
     const request = generateRequest({
       method: 'POST',
-      url: '/queues/test/jobs/2/_retry'
+      url: '/queues/test/jobs/2/_retry',
+      params: {
+        queueName: 'test',
+        jobId: '2'
+      }
     });
     const response = generateResponse(request.id);
 
     jest.spyOn(queues[0], 'getJob');
 
     return queues[0].add({data: 1})
-      .then(() => jobHandler.retryJob(request, response, () => {}, 'test', '2'))
+      .then(() => jobHandler.retryJob(request, response))
       .catch(error => {
         expect(queues[0].getJob).toBeCalledWith('2');
         expect(error).toBeInstanceOf(errors.Http404);
@@ -356,7 +418,11 @@ describe('retry job', () => {
   test('that is not failed', () => {
     const request = generateRequest({
       method: 'POST',
-      url: '/queues/test/jobs/1/_retry'
+      url: '/queues/test/jobs/1/_retry',
+      params: {
+        queueName: 'test',
+        jobId: '1'
+      }
     });
     const response = generateResponse(request.id);
 
@@ -364,7 +430,7 @@ describe('retry job', () => {
     jest.spyOn(Bull.Job.prototype, 'isFailed');
 
     return queues[0].add({data: 1})
-      .then(() => jobHandler.retryJob(request, response, () => {}, 'test', '1'))
+      .then(() => jobHandler.retryJob(request, response))
       .catch(error => {
         expect(queues[0].getJob).toBeCalledWith('1');
         expect(Bull.Job.prototype.isFailed).toBeCalled();
@@ -375,7 +441,11 @@ describe('retry job', () => {
   test('by id', () => {
     const request = generateRequest({
       method: 'POST',
-      url: '/queues/test/jobs/1/_retry'
+      url: '/queues/test/jobs/1/_retry',
+      params: {
+        queueName: 'test',
+        jobId: '1'
+      }
     });
     const response = generateResponse(request.id);
 
@@ -389,7 +459,7 @@ describe('retry job', () => {
 
     return queues[0].add({data: 1})
       .then(job => job.moveToFailed(new Error('for test'), true))
-      .then(() => jobHandler.retryJob(request, response, () => {}, 'test', '1'))
+      .then(() => jobHandler.retryJob(request, response))
       .then(() => {
         expect(queues[0].getJob).toBeCalledWith('1');
         expect(Bull.Job.prototype.isFailed).toBeCalled();
@@ -403,10 +473,14 @@ describe('delete job', () => {
   test('with failed queue name', () => {
     const request = generateRequest({
       method: 'DELETE',
-      url: '/queues/not-found/jobs/1'
+      url: '/queues/not-found/jobs/1',
+      params: {
+        queueName: 'not-found',
+        jobId: '1'
+      }
     });
     const response = generateResponse(request.id);
-    const fn = () => jobHandler.deleteJob(request, response, () => {}, 'not-found', '1');
+    const fn = () => jobHandler.deleteJob(request, response);
 
     expect(fn).toThrowError(errors.Http404);
   });
@@ -414,14 +488,18 @@ describe('delete job', () => {
   test('with failed job id', () => {
     const request = generateRequest({
       method: 'DELETE',
-      url: '/queues/test/jobs/2'
+      url: '/queues/test/jobs/2',
+      params: {
+        queueName: 'test',
+        jobId: '2'
+      }
     });
     const response = generateResponse(request.id);
 
     jest.spyOn(queues[0], 'getJob');
 
     return queues[0].add({data: 1})
-      .then(() => jobHandler.deleteJob(request, response, () => {}, 'test', '2'))
+      .then(() => jobHandler.deleteJob(request, response))
       .catch(error => {
         expect(queues[0].getJob).toBeCalledWith('2');
         expect(error).toBeInstanceOf(errors.Http404);
@@ -431,7 +509,11 @@ describe('delete job', () => {
   test('by id', () => {
     const request = generateRequest({
       method: 'DELETE',
-      url: '/queues/test/jobs/1'
+      url: '/queues/test/jobs/1',
+      params: {
+        queueName: 'test',
+        jobId: '1'
+      }
     });
     const response = generateResponse(request.id);
 
@@ -443,7 +525,7 @@ describe('delete job', () => {
     });
 
     return queues[0].add({data: 1})
-      .then(() => jobHandler.deleteJob(request, response, () => {}, 'test', '1'))
+      .then(() => jobHandler.deleteJob(request, response))
       .then(() => {
         expect(queues[0].getJob).toBeCalledWith('1');
         expect(Bull.Job.prototype.remove).toBeCalled();
