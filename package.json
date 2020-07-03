@@ -83,7 +83,7 @@
     "react-infinite-scroll": "git+https://git@github.com/kelp404/react-infinite-scroll.git#843a0d0380bf5c84ea337a03eed207cc2b527204",
     "react-test-renderer": "16.13.1",
     "redis": "3.0.2",
-    "sass-loader": "8.0.2",
+    "sass-loader": "9.0.0",
     "webpack": "4.43.0",
     "webpack-cli": "3.3.12",
     "webpack-dev-server": "3.11.0"
