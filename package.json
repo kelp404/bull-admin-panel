@@ -38,7 +38,7 @@
     "handlebars": "4.7.6",
     "path-to-regexp": "6.1.0",
     "query-string": "6.13.1",
-    "ws": "7.3.0"
+    "ws": "7.3.1"
   },
   "devDependencies": {
     "@babel/core": "7.10.4",
