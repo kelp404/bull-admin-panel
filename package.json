@@ -52,7 +52,7 @@
     "bootstrap": "4.5.0",
     "capybara-router": "2.1.0",
     "classnames": "2.2.6",
-    "compression-webpack-plugin": "4.0.0",
+    "compression-webpack-plugin": "6.0.1",
     "concurrently": "5.2.0",
     "config": "3.3.1",
     "conventional-changelog-cli": "2.0.34",
