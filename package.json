@@ -54,7 +54,7 @@
     "classnames": "2.2.6",
     "compression-webpack-plugin": "4.0.0",
     "concurrently": "5.3.0",
-    "config": "3.3.1",
+    "config": "3.3.2",
     "conventional-changelog-cli": "2.1.0",
     "coveralls": "3.1.0",
     "css-loader": "4.3.0",
