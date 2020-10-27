@@ -72,7 +72,7 @@
     "mini-css-extract-plugin": "0.11.2",
     "node-sass": "4.14.1",
     "nodemon": "2.0.6",
-    "npm-check-updates": "9.0.2",
+    "npm-check-updates": "9.2.2",
     "nprogress": "0.2.0",
     "optimize-css-assets-webpack-plugin": "5.0.4",
     "pubsub-js": "1.9.0",
