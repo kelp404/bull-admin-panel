@@ -48,7 +48,7 @@
     "@babel/preset-react": "7.12.5",
     "@fortawesome/fontawesome-free": "5.15.1",
     "babel-eslint": "10.1.0",
-    "babel-loader": "8.1.0",
+    "babel-loader": "8.2.2",
     "bootstrap": "4.5.3",
     "capybara-router": "2.2.0",
     "classnames": "2.2.6",
