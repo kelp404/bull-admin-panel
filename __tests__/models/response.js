@@ -13,7 +13,7 @@ test('initial response with request id and ws', () => {
 
 test('call end() will set isDidResponse as true', () => {
   const response = new Response({
-    requestId: Math.random().toString(36).substr(2),
+    requestId: Math.random().toString(36),
     ws: {}
   });
 
@@ -25,7 +25,7 @@ test('call end() will set isDidResponse as true', () => {
 test('can not send data twice', () => {
   const data = {url: 'http://example.com'};
   const response = new Response({
-    requestId: Math.random().toString(36).substr(2),
+    requestId: Math.random().toString(36),
     ws: {
       send: jest.fn()
     }

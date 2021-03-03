@@ -25,7 +25,7 @@ afterEach(() => {
 
 const generateRequest = ({method, url}) => {
   return new Request({
-    id: Math.random().toString(36).substr(2),
+    id: Math.random().toString(36),
     queues,
     method,
     url
