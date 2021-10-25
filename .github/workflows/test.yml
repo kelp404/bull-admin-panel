@@ -1,23 +1,28 @@
 name: test
 
-on: [pull_request]
+on: [push, pull_request]
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x]
+        node-version: [12.x, 14.x, 16.x]
         redis-version: [4, 5, 6]
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - uses: supercharge/redis-github-action@1.1.0
+      - uses: supercharge/redis-github-action@1.2.0
         with:
           redis-version: ${{ matrix.redis-version }}
       - run: npm install
       - run: npm run eslint
       - run: npm test
       - run: npm run build
+      - name: Upload to coveralls.io
+        if: ${{ github.ref == 'refs/heads/master' && matrix.node-version == '16.x' && matrix.redis-version == '6' }}
+        run: npm run coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
