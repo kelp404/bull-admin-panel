@@ -23,29 +23,25 @@ afterEach(() => {
   queues.forEach(queue => queue.close());
 });
 
-const generateRequest = ({method, url}) => {
-  return new Request({
-    id: Math.random().toString(36),
-    queues,
-    method,
-    url
-  });
-};
+const generateRequest = ({method, url}) => new Request({
+  id: Math.random().toString(36),
+  queues,
+  method,
+  url,
+});
 
-const generateResponse = requestId => {
-  return new Response({
-    requestId,
-    ws: {
-      send: () => {}
-    }
-  });
-};
+const generateResponse = requestId => new Response({
+  requestId,
+  ws: {
+    send() {},
+  },
+});
 
 describe('get queues', () => {
   test('by defaults', () => {
     const request = generateRequest({
       method: 'GET',
-      url: '/queues'
+      url: '/queues',
     });
     const response = generateResponse(request.id);
 

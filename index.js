@@ -6,7 +6,7 @@ module.exports = class BullAdminPanel extends express.Router {
     super();
     this.adminPanel = new AdminPanel({
       ...args,
-      expressRouter: this
+      expressRouter: this,
     });
   }
 };

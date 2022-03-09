@@ -8,7 +8,7 @@ module.exports = (env = {}) => ({
   target: 'web',
   mode: env.mode || 'development',
   entry: {
-    web: path.join(__dirname, 'lib', 'frontend', 'src', 'web.js')
+    web: path.join(__dirname, 'lib', 'frontend', 'src', 'web.js'),
   },
   devServer: {
     host: 'localhost',
@@ -17,16 +17,16 @@ module.exports = (env = {}) => ({
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Max-Age': '3000',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      'Access-Control-Allow-Methods': 'GET'
-    }
+      'Access-Control-Allow-Methods': 'GET',
+    },
   },
   resolve: {
-    extensions: ['.js']
+    extensions: ['.js'],
   },
   output: {
     path: path.join(__dirname, 'lib', 'frontend', 'dist'),
     publicPath: '/',
-    filename: '[name].js'
+    filename: '[name].js',
   },
   module: {
     rules: [
@@ -39,29 +39,29 @@ module.exports = (env = {}) => ({
             options: {
               presets: [
                 '@babel/preset-env',
-                '@babel/react'
+                '@babel/react',
               ],
               plugins: [
-                '@babel/plugin-proposal-class-properties'
-              ]
-            }
-          }
-        ]
+                '@babel/plugin-proposal-class-properties',
+              ],
+            },
+          },
+        ],
       },
       {
         test: /\.css$/,
         use: [
           {loader: MiniCssExtractPlugin.loader},
-          {loader: 'css-loader'}
-        ]
+          {loader: 'css-loader'},
+        ],
       },
       {
         test: /\.scss$/,
         use: [
           {loader: MiniCssExtractPlugin.loader},
           {loader: 'css-loader'},
-          {loader: 'sass-loader'}
-        ]
+          {loader: 'sass-loader'},
+        ],
       },
       {
         test: /.*\.(eot|svg|woff|woff2|ttf)$/,
@@ -71,39 +71,39 @@ module.exports = (env = {}) => ({
             options: {
               esModule: false,
               name: 'fonts/[name].[ext]',
-              publicPath: env.mode === 'production' ? '.' : '/'
-            }
-          }
-        ]
-      }
-    ]
+              publicPath: env.mode === 'production' ? '.' : '/',
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: (() => {
     const result = [
       new MiniCssExtractPlugin({
         filename: '[name].css',
-        chunkFilename: '[id].css'
+        chunkFilename: '[id].css',
       }),
-      new webpack.ProvidePlugin({$: 'jquery'})
+      new webpack.ProvidePlugin({$: 'jquery'}),
     ];
     if (env.mode === 'production') {
       result.push(
         new OptimizeCSSAssetsPlugin({
           cssProcessorOptions: {
-            discardComments: {removeAll: true}
-          }
-        })
+            discardComments: {removeAll: true},
+          },
+        }),
       );
       result.push(
         new CompressionWebpackPlugin({
           filename: '[path]',
           algorithm: 'gzip',
           test: /\.(js|css|svg)$/,
-          threshold: 0
-        })
+          threshold: 0,
+        }),
       );
     }
 
     return result;
-  })()
+  })(),
 });

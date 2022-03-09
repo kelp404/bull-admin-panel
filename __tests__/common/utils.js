@@ -7,7 +7,7 @@ test('renders base html', () => {
   const template = utils.getBaseTemplate();
   const config = {
     assetsPath: '/bull/assets',
-    basePath: '/bull'
+    basePath: '/bull',
   };
 
   expect(template({config})).toMatchSnapshot();

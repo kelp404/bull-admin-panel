@@ -31,21 +31,19 @@ const generateRequest = ({method, url, params}) => {
     id: Math.random().toString(36),
     queues,
     method,
-    url
+    url,
   });
 
   request.params = params;
   return request;
 };
 
-const generateResponse = requestId => {
-  return new Response({
-    requestId,
-    ws: {
-      send: () => {}
-    }
-  });
-};
+const generateResponse = requestId => new Response({
+  requestId,
+  ws: {
+    send() {},
+  },
+});
 
 describe('count all state jobs', () => {
   test('with failed queue name', () => {
@@ -53,8 +51,8 @@ describe('count all state jobs', () => {
       method: 'POST',
       url: '/queues/not-found/jobs/_count',
       params: {
-        queueName: 'not-found'
-      }
+        queueName: 'not-found',
+      },
     });
     const response = generateResponse(request.id);
     const fn = () => jobHandler.countAllStateJobs(request, response);
@@ -67,8 +65,8 @@ describe('count all state jobs', () => {
       method: 'POST',
       url: '/queues/test/jobs/_count',
       params: {
-        queueName: 'test'
-      }
+        queueName: 'test',
+      },
     });
     const response = generateResponse(request.id);
 
@@ -97,8 +95,8 @@ describe('get jobs', () => {
       method: 'GET',
       url: `/queues/test/jobs?${queryString.stringify(query)}`,
       params: {
-        queueName: 'test'
-      }
+        queueName: 'test',
+      },
     });
     const response = generateResponse(request.id);
     const fn = () => jobHandler.getJobs(request, response);
@@ -117,8 +115,8 @@ describe('get jobs', () => {
       method: 'GET',
       url: '/queues/not-found/jobs',
       params: {
-        queueName: 'not-found'
-      }
+        queueName: 'not-found',
+      },
     });
     const response = generateResponse(request.id);
     const fn = () => jobHandler.getJobs(request, response);
@@ -131,8 +129,8 @@ describe('get jobs', () => {
       method: 'GET',
       url: '/queues/test/jobs',
       params: {
-        queueName: 'test'
-      }
+        queueName: 'test',
+      },
     });
     const response = generateResponse(request.id);
 
@@ -143,11 +141,11 @@ describe('get jobs', () => {
         items: [
           {
             opts: {
-              timestamp: expect.any(Number)
+              timestamp: expect.any(Number),
             },
-            timestamp: expect.any(Number)
-          }
-        ]
+            timestamp: expect.any(Number),
+          },
+        ],
       });
       expect(status).toBeUndefined();
     });
@@ -167,8 +165,8 @@ describe('get jobs', () => {
       method: 'GET',
       url: `/queues/test/jobs?${queryString.stringify(query)}`,
       params: {
-        queueName: 'test'
-      }
+        queueName: 'test',
+      },
     });
     const response = generateResponse(request.id);
 
@@ -179,11 +177,11 @@ describe('get jobs', () => {
         items: [
           {
             opts: {
-              timestamp: expect.any(Number)
+              timestamp: expect.any(Number),
             },
-            timestamp: expect.any(Number)
-          }
-        ]
+            timestamp: expect.any(Number),
+          },
+        ],
       });
       expect(status).toBeUndefined();
     });
@@ -204,8 +202,8 @@ describe('clean jobs', () => {
       method: 'POST',
       url: `/queues/test/jobs/_clean?state=${JobState.WAITING}`,
       params: {
-        queueName: 'test'
-      }
+        queueName: 'test',
+      },
     });
     const response = generateResponse(request.id);
     const fn = () => jobHandler.cleanJobs(request, response);
@@ -218,8 +216,8 @@ describe('clean jobs', () => {
       method: 'POST',
       url: `/queues/test/jobs/_clean?state=${JobState.ACTIVE}`,
       params: {
-        queueName: 'test'
-      }
+        queueName: 'test',
+      },
     });
     const response = generateResponse(request.id);
     const fn = () => jobHandler.cleanJobs(request, response);
@@ -232,8 +230,8 @@ describe('clean jobs', () => {
       method: 'POST',
       url: `/queues/test/jobs/_clean?state=${JobState.DELAYED}`,
       params: {
-        queueName: 'test'
-      }
+        queueName: 'test',
+      },
     });
     const response = generateResponse(request.id);
     const fn = () => jobHandler.cleanJobs(request, response);
@@ -246,8 +244,8 @@ describe('clean jobs', () => {
       method: 'POST',
       url: `/queues/test/jobs/_clean?state=${JobState.PAUSED}`,
       params: {
-        queueName: 'test'
-      }
+        queueName: 'test',
+      },
     });
     const response = generateResponse(request.id);
     const fn = () => jobHandler.cleanJobs(request, response);
@@ -260,8 +258,8 @@ describe('clean jobs', () => {
       method: 'POST',
       url: `/queues/not-found/jobs/_clean?state=${JobState.COMPLETED}`,
       params: {
-        queueName: 'not-found'
-      }
+        queueName: 'not-found',
+      },
     });
     const response = generateResponse(request.id);
     const fn = () => jobHandler.cleanJobs(request, response);
@@ -274,8 +272,8 @@ describe('clean jobs', () => {
       method: 'POST',
       url: `/queues/test/jobs/_clean?state=${JobState.COMPLETED}`,
       params: {
-        queueName: 'test'
-      }
+        queueName: 'test',
+      },
     });
     const response = generateResponse(request.id);
 
@@ -294,8 +292,8 @@ describe('clean jobs', () => {
       method: 'POST',
       url: `/queues/test/jobs/_clean?state=${JobState.FAILED}`,
       params: {
-        queueName: 'test'
-      }
+        queueName: 'test',
+      },
     });
     const response = generateResponse(request.id);
 
@@ -317,8 +315,8 @@ describe('get job', () => {
       url: '/queues/not-found/jobs/1',
       params: {
         queueName: 'not-found',
-        jobId: '1'
-      }
+        jobId: '1',
+      },
     });
     const response = generateResponse(request.id);
 
@@ -335,8 +333,8 @@ describe('get job', () => {
       url: '/queues/test/jobs/1',
       params: {
         queueName: 'test',
-        jobId: '1'
-      }
+        jobId: '1',
+      },
     });
     const response = generateResponse(request.id);
 
@@ -344,9 +342,9 @@ describe('get job', () => {
     jest.spyOn(response, 'json').mockImplementation((data, status) => {
       expect(data).toMatchSnapshot({
         opts: {
-          timestamp: expect.any(Number)
+          timestamp: expect.any(Number),
         },
-        timestamp: expect.any(Number)
+        timestamp: expect.any(Number),
       });
       expect(status).toBeUndefined();
     });
@@ -365,8 +363,8 @@ describe('get job', () => {
       url: '/queues/test/jobs/2',
       params: {
         queueName: 'test',
-        jobId: '2'
-      }
+        jobId: '2',
+      },
     });
     const response = generateResponse(request.id);
 
@@ -385,8 +383,8 @@ describe('retry job', () => {
       url: '/queues/not-found/jobs/1/_retry',
       params: {
         queueName: 'not-found',
-        jobId: '1'
-      }
+        jobId: '1',
+      },
     });
     const response = generateResponse(request.id);
     const fn = () => jobHandler.retryJob(request, response);
@@ -400,8 +398,8 @@ describe('retry job', () => {
       url: '/queues/test/jobs/2/_retry',
       params: {
         queueName: 'test',
-        jobId: '2'
-      }
+        jobId: '2',
+      },
     });
     const response = generateResponse(request.id);
 
@@ -421,8 +419,8 @@ describe('retry job', () => {
       url: '/queues/test/jobs/1/_retry',
       params: {
         queueName: 'test',
-        jobId: '1'
-      }
+        jobId: '1',
+      },
     });
     const response = generateResponse(request.id);
 
@@ -444,8 +442,8 @@ describe('retry job', () => {
       url: '/queues/test/jobs/1/_retry',
       params: {
         queueName: 'test',
-        jobId: '1'
-      }
+        jobId: '1',
+      },
     });
     const response = generateResponse(request.id);
 
@@ -476,8 +474,8 @@ describe('delete job', () => {
       url: '/queues/not-found/jobs/1',
       params: {
         queueName: 'not-found',
-        jobId: '1'
-      }
+        jobId: '1',
+      },
     });
     const response = generateResponse(request.id);
     const fn = () => jobHandler.deleteJob(request, response);
@@ -491,8 +489,8 @@ describe('delete job', () => {
       url: '/queues/test/jobs/2',
       params: {
         queueName: 'test',
-        jobId: '2'
-      }
+        jobId: '2',
+      },
     });
     const response = generateResponse(request.id);
 
@@ -512,8 +510,8 @@ describe('delete job', () => {
       url: '/queues/test/jobs/1',
       params: {
         queueName: 'test',
-        jobId: '1'
-      }
+        jobId: '1',
+      },
     });
     const response = generateResponse(request.id);
 

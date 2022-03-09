@@ -11,7 +11,7 @@ app.get('/', (req, res) => res.redirect('/bull'));
 
 app.use('/bull', new BullAdminPanel({
   basePath: '/bull',
-  verifyClient: (info, callback) => {
+  verifyClient(info, callback) {
     // Do authorization for WebSocket.
     // const user = auth(info.req);
     // if (!user) {
@@ -20,7 +20,7 @@ app.use('/bull', new BullAdminPanel({
     callback(true);
   },
   queues: [new Bull('task-worker', config.bull)],
-  server: server
+  server,
 }));
 
 // Launch server

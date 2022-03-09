@@ -5,7 +5,7 @@ afterEach(() => jest.restoreAllMocks());
 test('initial response with request id and ws', () => {
   const response = new Response({
     requestId: 'id',
-    ws: {id: 1}
+    ws: {id: 1},
   });
 
   expect(response).toMatchSnapshot();
@@ -14,7 +14,7 @@ test('initial response with request id and ws', () => {
 test('call end() will set isDidResponse as true', () => {
   const response = new Response({
     requestId: Math.random().toString(36),
-    ws: {}
+    ws: {},
   });
 
   expect(response.isDidResponse).toBeFalsy();
@@ -27,8 +27,8 @@ test('can not send data twice', () => {
   const response = new Response({
     requestId: Math.random().toString(36),
     ws: {
-      send: jest.fn()
-    }
+      send: jest.fn(),
+    },
   });
 
   response.json(data);
@@ -41,8 +41,8 @@ test('send success json response', () => {
   const response = new Response({
     requestId: 'lb11ge3aa0f',
     ws: {
-      send: jest.fn(message => expect(message).toMatchSnapshot())
-    }
+      send: jest.fn(message => expect(message).toMatchSnapshot()),
+    },
   });
 
   jest.spyOn(response, 'end');
@@ -57,8 +57,8 @@ test('send failed json response', () => {
   const response = new Response({
     requestId: 'lb11ge3aa0f',
     ws: {
-      send: jest.fn(message => expect(message).toMatchSnapshot())
-    }
+      send: jest.fn(message => expect(message).toMatchSnapshot()),
+    },
   });
 
   jest.spyOn(response, 'end');

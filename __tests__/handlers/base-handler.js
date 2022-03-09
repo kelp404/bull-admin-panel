@@ -28,10 +28,10 @@ describe('get base template', () => {
       locals: {
         bullAdminPanel: {
           assetsPath: '/assets',
-          basePath: '/bull'
-        }
+          basePath: '/bull',
+        },
       },
-      send: jest.fn(html => expect(html).toMatchSnapshot())
+      send: jest.fn(html => expect(html).toMatchSnapshot()),
     };
 
     baseHandler.getBaseTemplate(req, res);
