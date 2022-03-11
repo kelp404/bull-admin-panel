@@ -3,10 +3,11 @@ const webpack = require('webpack');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const MODE = process.env.NODE_ENV || 'development';
 
-module.exports = (env = {}) => ({
+module.exports = () => ({
   target: 'web',
-  mode: env.mode || 'development',
+  mode: MODE,
   entry: {
     web: path.join(__dirname, 'lib', 'frontend', 'src', 'web.js'),
   },
@@ -70,7 +71,7 @@ module.exports = (env = {}) => ({
             options: {
               esModule: false,
               name: 'fonts/[name].[ext]',
-              publicPath: env.mode === 'production' ? '.' : '/',
+              publicPath: MODE === 'production' ? '.' : '/',
             },
           },
         ],
@@ -85,7 +86,7 @@ module.exports = (env = {}) => ({
       }),
       new webpack.ProvidePlugin({$: 'jquery'}),
     ];
-    if (env.mode === 'production') {
+    if (MODE === 'production') {
       result.push(
         new OptimizeCSSAssetsPlugin({
           cssProcessorOptions: {
