@@ -6,7 +6,7 @@
   "scripts": {
     "start": "BULL_ADMIN_PANEL_DEBUG=true concurrently --kill-others \"node_modules/nodemon/bin/nodemon.js example/server.js --watch example --watch lib\" \"node_modules/webpack-dev-server/bin/webpack-dev-server.js\"",
     "build": "rm -rf lib/frontend/dist && node_modules/webpack/bin/webpack.js --env.mode=production",
-    "ncu": "node_modules/npm-check-updates/bin/cli.js",
+    "ncu": "node_modules/.bin/npm-check-updates",
     "eslint": "node_modules/eslint/bin/eslint.js ./ --ignore-path .gitignore --ignore-pattern 'lib/frontend/dist/'",
     "changelog": "node_modules/conventional-changelog-cli/cli.js -p angular",
     "test": "node_modules/jest/bin/jest.js --coverage __tests__",
@@ -72,7 +72,7 @@
     "mini-css-extract-plugin": "0.11.2",
     "node-sass": "6.0.1",
     "nodemon": "2.0.15",
-    "npm-check-updates": "9.2.4",
+    "npm-check-updates": "12.5.2",
     "nprogress": "0.2.0",
     "optimize-css-assets-webpack-plugin": "5.0.4",
     "pubsub-js": "1.9.1",
