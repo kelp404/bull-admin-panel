@@ -12,9 +12,7 @@ exports[`count all state jobs by defaults 1`] = `
 Object {
   "active": 0,
   "completed": 0,
-  "delayed": 0,
   "failed": 0,
-  "paused": 0,
   "waiting": 0,
 }
 `;
@@ -104,7 +102,7 @@ Array [
   },
   Object {
     "actual": "c",
-    "expected": "waiting, active, completed, failed, delayed, paused",
+    "expected": "waiting, active, completed, failed",
     "field": "state",
     "message": "The 'state' field does not match any of the allowed values.",
     "type": "stringEnum",
