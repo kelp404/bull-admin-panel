@@ -38,7 +38,7 @@
     "handlebars": "4.7.7",
     "path-to-regexp": "6.2.0",
     "query-string": "6.13.7",
-    "ws": "7.3.1"
+    "ws": "7.5.7"
   },
   "devDependencies": {
     "@babel/core": "7.17.5",
@@ -51,7 +51,7 @@
     "babel-loader": "8.2.3",
     "bootstrap": "4.5.3",
     "capybara-router": "2.6.0",
-    "classnames": "2.2.6",
+    "classnames": "2.3.1",
     "compression-webpack-plugin": "4.0.0",
     "concurrently": "7.0.0",
     "config": "3.3.7",
@@ -82,7 +82,7 @@
     "react-flip-move": "3.0.4",
     "react-infinite-scroll": "git+https://git@github.com/kelp404/react-infinite-scroll.git#843a0d0380bf5c84ea337a03eed207cc2b527204",
     "react-test-renderer": "16.13.1",
-    "redis": "3.0.2",
+    "redis": "3.1.2",
     "sass-loader": "10.2.1",
     "webpack": "4.44.2",
     "webpack-cli": "3.3.12",
