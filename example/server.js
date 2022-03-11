@@ -4,6 +4,27 @@ const http = require('http');
 const Bull = require('bull');
 const BullAdminPanel = require('../');
 
+const queue = new Bull('task-worker', config.bull);
+
+setInterval(() => {
+  queue.add(
+    {data: Math.random().toString(36)},
+    {removeOnComplete: 30, removeOnFail: 30, timeout: 30000},
+  );
+}, 1000);
+queue.process(1, () => new Promise((resolve, reject) => {
+  const isSuccess = Math.random() >= 0.5;
+  const sleepTime = parseInt(Math.random() * 3, 10) * 1000;
+
+  setTimeout(() => {
+    if (isSuccess) {
+      resolve({sleepTime});
+    } else {
+      reject(new Error('failed'));
+    }
+  }, sleepTime);
+}));
+
 const app = express();
 const server = http.createServer(app);
 
@@ -19,7 +40,7 @@ app.use('/bull', new BullAdminPanel({
     // }
     callback(true);
   },
-  queues: [new Bull('task-worker', config.bull)],
+  queues: [queue],
   server,
 }));
 
