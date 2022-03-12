@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/kelp404/bull-admin-panel#readme",
   "dependencies": {
-    "bull": "3.18.1",
+    "bull": "4.7.0",
     "express": "4.17.3",
     "fastest-validator": "1.12.0",
     "handlebars": "4.7.7",
@@ -56,7 +56,7 @@
     "concurrently": "7.0.0",
     "config": "3.3.7",
     "conventional-changelog-cli": "2.1.1",
-    "coveralls": "3.1.0",
+    "coveralls": "3.1.1",
     "css-loader": "5.0.1",
     "dayjs": "1.10.1",
     "eslint": "8.10.0",
