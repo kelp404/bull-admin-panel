@@ -50,7 +50,7 @@
     "@fortawesome/fontawesome-free": "5.15.1",
     "babel-loader": "8.2.3",
     "bootstrap": "4.5.3",
-    "capybara-router": "2.6.0",
+    "capybara-router": "2.7.0",
     "classnames": "2.3.1",
     "compression-webpack-plugin": "4.0.1",
     "concurrently": "7.0.0",
