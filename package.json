@@ -47,7 +47,7 @@
     "@babel/polyfill": "7.12.1",
     "@babel/preset-env": "7.16.11",
     "@babel/preset-react": "7.16.7",
-    "@fortawesome/fontawesome-free": "5.15.1",
+    "@fortawesome/fontawesome-free": "6.1.0",
     "babel-loader": "8.2.3",
     "bootstrap": "4.5.3",
     "capybara-router": "2.7.0",
