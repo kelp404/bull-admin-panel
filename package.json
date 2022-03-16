@@ -8,7 +8,7 @@
     "build": "rm -rf lib/frontend/dist && NODE_ENV=production node_modules/webpack/bin/webpack.js",
     "ncu": "node_modules/.bin/npm-check-updates",
     "eslint": "node_modules/eslint/bin/eslint.js ./ --ignore-path .gitignore --ignore-pattern 'lib/frontend/dist/'",
-    "changelog": "node_modules/conventional-changelog-cli/cli.js -p angular",
+    "changelog": "node_modules/conventional-changelog-cli/cli.js -n changelog.config/index.js",
     "test": "node_modules/jest/bin/jest.js --coverage __tests__",
     "coveralls": "node_modules/coveralls/bin/coveralls.js < ./coverage/lcov.info"
   },
