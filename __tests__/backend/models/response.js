@@ -1,4 +1,4 @@
-const Response = require('../../lib/models/response');
+const Response = require('../../../lib/models/response');
 
 afterEach(() => jest.restoreAllMocks());
 

@@ -1,4 +1,4 @@
-const PageList = require('../../lib/models/page-list');
+const PageList = require('../../../lib/models/page-list');
 
 afterEach(() => jest.restoreAllMocks());
 

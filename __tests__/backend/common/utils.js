@@ -1,5 +1,5 @@
 const fs = require('fs');
-const utils = require('../../lib/common/utils');
+const utils = require('../../../lib/common/utils');
 
 afterEach(() => jest.restoreAllMocks());
 
