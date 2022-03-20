@@ -3,7 +3,7 @@ const queryString = require('query-string');
 const errors = require('../../../lib/models/errors');
 const Request = require('../../../lib/models/request');
 const Response = require('../../../lib/models/response');
-const JobState = require('../../../lib/models/constants/job-state');
+const JOB_STATE = require('../../../lib/models/constants/job-state');
 const jobHandler = require('../../../lib/handlers/job-handler');
 const {flushDbThenGenerateQueues} = require('../utils');
 let queues;
@@ -144,14 +144,14 @@ describe('get jobs', () => {
     return queues[0].add({data: 1})
       .then(() => jobHandler.getJobs(request, response))
       .then(() => {
-        expect(queues[0].getJobs).toBeCalledWith(JobState.all(), 0, 19);
+        expect(queues[0].getJobs).toBeCalledWith(Object.values(JOB_STATE), 0, 19);
         expect(queues[0].getJobCounts).toBeCalled();
         expect(response.json).toBeCalled();
       });
   });
 
   test('that are waiting', () => {
-    const query = {state: JobState.WAITING};
+    const query = {state: JOB_STATE.WAITING};
     const request = generateRequest({
       method: 'GET',
       url: `/queues/test/jobs?${queryString.stringify(query)}`,
@@ -180,7 +180,7 @@ describe('get jobs', () => {
     return queues[0].add({data: 1})
       .then(() => jobHandler.getJobs(request, response))
       .then(() => {
-        expect(queues[0].getJobs).toBeCalledWith([JobState.WAITING], 0, 19);
+        expect(queues[0].getJobs).toBeCalledWith([JOB_STATE.WAITING], 0, 19);
         expect(queues[0].getJobCounts).toBeCalled();
         expect(response.json).toBeCalled();
       });
@@ -191,7 +191,7 @@ describe('clean jobs', () => {
   test('that are waiting', () => {
     const request = generateRequest({
       method: 'POST',
-      url: `/queues/test/jobs/_clean?state=${JobState.WAITING}`,
+      url: `/queues/test/jobs/_clean?state=${JOB_STATE.WAITING}`,
       params: {
         queueName: 'test',
       },
@@ -205,7 +205,7 @@ describe('clean jobs', () => {
   test('that are active', () => {
     const request = generateRequest({
       method: 'POST',
-      url: `/queues/test/jobs/_clean?state=${JobState.ACTIVE}`,
+      url: `/queues/test/jobs/_clean?state=${JOB_STATE.ACTIVE}`,
       params: {
         queueName: 'test',
       },
@@ -219,7 +219,7 @@ describe('clean jobs', () => {
   test('that are delayed', () => {
     const request = generateRequest({
       method: 'POST',
-      url: `/queues/test/jobs/_clean?state=${JobState.DELAYED}`,
+      url: `/queues/test/jobs/_clean?state=${JOB_STATE.DELAYED}`,
       params: {
         queueName: 'test',
       },
@@ -233,7 +233,7 @@ describe('clean jobs', () => {
   test('that are paused', () => {
     const request = generateRequest({
       method: 'POST',
-      url: `/queues/test/jobs/_clean?state=${JobState.PAUSED}`,
+      url: `/queues/test/jobs/_clean?state=${JOB_STATE.PAUSED}`,
       params: {
         queueName: 'test',
       },
@@ -247,7 +247,7 @@ describe('clean jobs', () => {
   test('with failed queue name', () => {
     const request = generateRequest({
       method: 'POST',
-      url: `/queues/not-found/jobs/_clean?state=${JobState.COMPLETED}`,
+      url: `/queues/not-found/jobs/_clean?state=${JOB_STATE.COMPLETED}`,
       params: {
         queueName: 'not-found',
       },
@@ -261,7 +261,7 @@ describe('clean jobs', () => {
   test('that are completed', () => {
     const request = generateRequest({
       method: 'POST',
-      url: `/queues/test/jobs/_clean?state=${JobState.COMPLETED}`,
+      url: `/queues/test/jobs/_clean?state=${JOB_STATE.COMPLETED}`,
       params: {
         queueName: 'test',
       },
@@ -273,7 +273,7 @@ describe('clean jobs', () => {
 
     return jobHandler.cleanJobs(request, response)
       .then(() => {
-        expect(queues[0].clean).toBeCalledWith(0, JobState.COMPLETED);
+        expect(queues[0].clean).toBeCalledWith(0, JOB_STATE.COMPLETED);
         expect(response.json).toBeCalledWith({}, 204);
       });
   });
@@ -281,7 +281,7 @@ describe('clean jobs', () => {
   test('that are failed', () => {
     const request = generateRequest({
       method: 'POST',
-      url: `/queues/test/jobs/_clean?state=${JobState.FAILED}`,
+      url: `/queues/test/jobs/_clean?state=${JOB_STATE.FAILED}`,
       params: {
         queueName: 'test',
       },
@@ -293,7 +293,7 @@ describe('clean jobs', () => {
 
     return jobHandler.cleanJobs(request, response)
       .then(() => {
-        expect(queues[0].clean).toBeCalledWith(0, JobState.FAILED);
+        expect(queues[0].clean).toBeCalledWith(0, JOB_STATE.FAILED);
         expect(response.json).toBeCalledWith({}, 204);
       });
   });
