@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/kelp404/bull-admin-panel#readme",
   "dependencies": {
-    "bull": "4.7.0",
+    "bull": "4.8.1",
     "express": "4.17.3",
     "fastest-validator": "1.12.0",
     "handlebars": "4.7.7",
