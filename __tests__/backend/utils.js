@@ -1,13 +1,12 @@
-const util = require('util');
 const redis = require('redis');
 const config = require('config');
 const Bull = require('bull');
 
-exports.flushDbThenGenerateQueues = () => {
-  const client = redis.createClient(config.bull.redis);
-  const flushDB = util.promisify(client.flushdb).bind(client);
+exports.flushDbThenGenerateQueues = async () => {
+  const client = redis.createClient({url: config.bull.redisUrl});
 
-  return flushDB()
-    .then(() => client.end(true))
-    .then(() => [new Bull('test', config.bull)]);
+  await client.connect();
+  await client.flushDb();
+  await client.quit();
+  return [new Bull('test', config.bull.redisUrl)];
 };

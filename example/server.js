@@ -4,7 +4,7 @@ const http = require('http');
 const Bull = require('bull');
 const BullAdminPanel = require('../');
 
-const queue = new Bull('task-worker', config.bull);
+const queue = new Bull('task-worker', config.bull.redisUrl);
 
 setInterval(() => {
   queue.add(
