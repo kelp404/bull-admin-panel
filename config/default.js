@@ -4,10 +4,6 @@ module.exports = {
     port: '8000',
   },
   bull: {
-    redis: {
-      host: 'localhost',
-      port: 6379,
-      db: 1,
-    },
+    redisUrl: 'redis://localhost:6379/0',
   },
 };
