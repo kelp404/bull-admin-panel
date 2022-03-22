@@ -4,7 +4,8 @@ const http = require('http');
 const Bull = require('bull');
 const BullAdminPanel = require('../');
 
-const queue = new Bull('task-worker', config.bull.redisUrl);
+const {BULL, EXPRESS_SERVER} = config;
+const queue = new Bull('task-worker', BULL.REDIS_URL);
 
 setInterval(() => {
   queue.add(
@@ -45,7 +46,7 @@ app.use('/bull', new BullAdminPanel({
 }));
 
 // Launch server
-server.listen(config.expressServer.port, config.expressServer.host, () => {
+server.listen(EXPRESS_SERVER.PORT, EXPRESS_SERVER.HOST, () => {
   const {address, port} = server.address();
   console.log(`Server listening at http://${address}:${port}`);
 });

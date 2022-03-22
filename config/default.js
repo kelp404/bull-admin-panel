@@ -1,9 +1,9 @@
 module.exports = {
-  expressServer: {
-    host: '0.0.0.0',
-    port: '8000',
+  EXPRESS_SERVER: {
+    HOST: '0.0.0.0',
+    PORT: '8000',
   },
-  bull: {
-    redisUrl: 'redis://localhost:6379/0',
+  BULL: {
+    REDIS_URL: 'redis://localhost:6379/0',
   },
 };

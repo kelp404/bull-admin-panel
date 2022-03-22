@@ -3,10 +3,11 @@ const config = require('config');
 const Bull = require('bull');
 
 exports.flushDbThenGenerateQueues = async () => {
-  const client = redis.createClient({url: config.bull.redisUrl});
+  const {BULL} = config;
+  const client = redis.createClient({url: BULL.REDIS_URL});
 
   await client.connect();
   await client.flushDb();
   await client.quit();
-  return [new Bull('test', config.bull.redisUrl)];
+  return [new Bull('test', BULL.REDIS_URL)];
 };
