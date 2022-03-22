@@ -1,21 +1,11 @@
-const util = require('util');
-const config = require('config');
-const Bull = require('bull');
-const redis = require('redis');
-const Request = require('../../lib/models/request');
-const Response = require('../../lib/models/response');
-const queueHandler = require('../../lib/handlers/queue-handler');
+const Request = require('../../../lib/models/request');
+const Response = require('../../../lib/models/response');
+const queueHandler = require('../../../lib/handlers/queue-handler');
+const {flushDbThenGenerateQueues} = require('../utils');
 let queues;
 
-beforeEach(() => {
-  const client = redis.createClient(config.bull.redis);
-  const flushDB = util.promisify(client.flushdb).bind(client);
-
-  return flushDB()
-    .then(() => client.end(true))
-    .then(() => {
-      queues = [new Bull('test', config.bull)];
-    });
+beforeEach(async () => {
+  queues = await flushDbThenGenerateQueues();
 });
 
 afterEach(() => {

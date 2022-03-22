@@ -21,8 +21,3 @@ jobs:
       - run: npm run eslint
       - run: npm test
       - run: npm run build
-      - name: Upload to coveralls.io
-        if: ${{ github.ref == 'refs/heads/master' && matrix.node-version == '16.x' && matrix.redis-version == '6' }}
-        run: npm run coveralls
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
