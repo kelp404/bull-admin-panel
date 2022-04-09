@@ -74,7 +74,7 @@
     "jest-environment-node": "27.5.1",
     "jquery": "3.6.0",
     "mini-css-extract-plugin": "1.6.2",
-    "node-sass": "6.0.1",
+    "node-sass": "7.0.1",
     "nodemon": "2.0.15",
     "npm-check-updates": "12.5.8",
     "nprogress": "0.2.0",
