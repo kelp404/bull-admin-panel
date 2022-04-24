@@ -8,7 +8,7 @@
     "build": "rm -rf lib/frontend/dist && NODE_ENV=production node_modules/webpack/bin/webpack.js",
     "ncu": "node_modules/.bin/npm-check-updates",
     "eslint": "node_modules/eslint/bin/eslint.js ./ --ignore-path .gitignore --ignore-pattern 'lib/frontend/dist/'",
-    "changelog": "node_modules/conventional-changelog-cli/cli.js -n changelog.config/index.js",
+    "changelog": "node_modules/conventional-changelog-cli/cli.js -n node_modules/@kelp404/changelog.config",
     "test": "npm run test:backend && npm run test:frontend",
     "test:backend": "node_modules/jest/bin/jest.js --config __tests__/backend/jest.config.js",
     "test:frontend": "node_modules/jest/bin/jest.js --config __tests__/frontend/jest.config.js"
@@ -50,6 +50,7 @@
     "@babel/preset-env": "7.16.11",
     "@babel/preset-react": "7.16.7",
     "@fortawesome/fontawesome-free": "6.1.0",
+    "@kelp404/changelog.config": "0.1.0",
     "@kelp404/react-infinite-scroller": "1.2.5",
     "babel-loader": "8.2.4",
     "bootstrap": "4.5.3",
