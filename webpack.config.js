@@ -2,7 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MODE = process.env.NODE_ENV || 'development';
 
 module.exports = () => ({
@@ -78,32 +77,23 @@ module.exports = () => ({
       },
     ],
   },
-  plugins: (() => {
-    const result = [
-      new MiniCssExtractPlugin({
-        filename: '[name].css',
-        chunkFilename: '[id].css',
-      }),
-      new webpack.ProvidePlugin({$: 'jquery'}),
-    ];
-    if (MODE === 'production') {
-      result.push(
-        new OptimizeCSSAssetsPlugin({
-          cssProcessorOptions: {
-            discardComments: {removeAll: true},
-          },
-        }),
-      );
-      result.push(
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+    }),
+    new webpack.ProvidePlugin({$: 'jquery'}),
+    ...MODE === 'production'
+      ? [
         new CompressionWebpackPlugin({
-          filename: '[path]',
+          deleteOriginalAssets: true,
+          filename: '[file]',
           algorithm: 'gzip',
           test: /\.(js|css|svg)$/,
           threshold: 0,
+          minRatio: Number.MAX_SAFE_INTEGER,
         }),
-      );
-    }
-
-    return result;
-  })(),
+      ]
+      : [],
+  ],
 });
