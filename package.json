@@ -4,14 +4,14 @@
   "description": "An admin panel of Bull based on WebSocket.",
   "main": "index.js",
   "scripts": {
-    "start": "BULL_ADMIN_PANEL_DEBUG=true concurrently --kill-others \"node_modules/nodemon/bin/nodemon.js example/server.js --watch example --watch lib\" \"node_modules/webpack-dev-server/bin/webpack-dev-server.js\"",
-    "build": "rm -rf lib/frontend/dist && NODE_ENV=production node_modules/webpack/bin/webpack.js",
-    "ncu": "node_modules/.bin/npm-check-updates",
-    "eslint": "node_modules/eslint/bin/eslint.js ./ --ignore-path .gitignore --ignore-pattern 'lib/frontend/dist/'",
+    "start": "BULL_ADMIN_PANEL_DEBUG=true concurrently --kill-others \"nodemon example/server.js --watch example --watch lib\" \"webpack-dev-server\"",
+    "build": "rm -rf lib/frontend/dist && NODE_ENV=production webpack",
+    "ncu": "npm-check-updates",
+    "eslint": "eslint ./ --ignore-path .gitignore --ignore-pattern 'lib/frontend/dist/'",
     "changelog": "node_modules/conventional-changelog-cli/cli.js -n node_modules/@kelp404/changelog.config",
     "test": "npm run test:backend && npm run test:frontend",
-    "test:backend": "node_modules/jest/bin/jest.js --config __tests__/backend/jest.config.js",
-    "test:frontend": "node_modules/jest/bin/jest.js --config __tests__/frontend/jest.config.js"
+    "test:backend": "jest --config __tests__/backend/jest.config.js",
+    "test:frontend": "jest --config __tests__/frontend/jest.config.js"
   },
   "files": [
     "index.js",
