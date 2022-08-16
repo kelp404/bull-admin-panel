@@ -35,7 +35,7 @@
   "dependencies": {
     "bull": "4.8.5",
     "express": "4.18.1",
-    "fastest-validator": "1.12.0",
+    "fastest-validator": "1.13.0",
     "handlebars": "4.7.7",
     "path-to-regexp": "6.2.0",
     "query-string": "7.1.1",
