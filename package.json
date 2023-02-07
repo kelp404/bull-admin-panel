@@ -76,7 +76,7 @@
     "jquery": "3.6.0",
     "mini-css-extract-plugin": "2.6.1",
     "nodemon": "2.0.19",
-    "npm-check-updates": "16.0.5",
+    "npm-check-updates": "16.6.5",
     "nprogress": "0.2.0",
     "pubsub-js": "1.9.4",
     "react": "16.13.1",
