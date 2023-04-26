@@ -54,7 +54,7 @@
     "@kelp404/react-infinite-scroller": "1.2.5",
     "babel-loader": "8.2.5",
     "bootstrap": "4.5.3",
-    "capybara-router": "2.8.0",
+    "capybara-router": "2.12.0",
     "classnames": "2.3.1",
     "compression-webpack-plugin": "10.0.0",
     "concurrently": "7.1.0",
