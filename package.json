@@ -63,7 +63,7 @@
     "css-loader": "6.7.1",
     "dayjs": "1.11.0",
     "eslint": "8.22.0",
-    "eslint-config-xo": "0.40.0",
+    "eslint-config-xo": "0.42.0",
     "eslint-config-xo-react": "0.27.0",
     "eslint-config-xo-space": "0.32.0",
     "eslint-plugin-react": "7.32.2",
