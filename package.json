@@ -57,7 +57,7 @@
     "capybara-router": "2.8.0",
     "classnames": "2.3.1",
     "compression-webpack-plugin": "10.0.0",
-    "concurrently": "7.1.0",
+    "concurrently": "8.1.0",
     "config": "3.3.7",
     "conventional-changelog-cli": "2.2.2",
     "css-loader": "6.7.1",
