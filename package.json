@@ -61,7 +61,7 @@
     "config": "3.3.7",
     "conventional-changelog-cli": "2.2.2",
     "css-loader": "6.7.1",
-    "dayjs": "1.11.0",
+    "dayjs": "1.11.8",
     "eslint": "8.22.0",
     "eslint-config-xo": "0.40.0",
     "eslint-config-xo-react": "0.27.0",
